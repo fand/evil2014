@@ -530,19 +530,19 @@
 
     SynthCoreView.prototype.initEvent = function() {
       var _this = this;
-      this.vcos.on("change", function() {
+      this.vcos.on("change input", function() {
         return _this.fetchVCOParam();
       });
-      this.gain_inputs.on("change", function() {
+      this.gain_inputs.on("change input", function() {
         return _this.fetchGains();
       });
-      this.filter_inputs.on("change", function() {
+      this.filter_inputs.on("change input", function() {
         return _this.fetchFilterParam();
       });
-      this.EG_inputs.on("change", function() {
+      this.EG_inputs.on("change input", function() {
         return _this.fetchEGParam();
       });
-      this.FEG_inputs.on("change", function() {
+      this.FEG_inputs.on("change input", function() {
         return _this.fetchFEGParam();
       });
       return this.fetchParam();

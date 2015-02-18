@@ -497,11 +497,11 @@ class @SynthCoreView
         @initEvent()
 
     initEvent: ->
-        @vcos.on("change",          () => @fetchVCOParam())
-        @gain_inputs.on("change",   () => @fetchGains())
-        @filter_inputs.on("change", () => @fetchFilterParam())
-        @EG_inputs.on("change",     () => @fetchEGParam())
-        @FEG_inputs.on("change",    () => @fetchFEGParam())
+        @vcos.on("change input",          () => @fetchVCOParam())
+        @gain_inputs.on("change input",   () => @fetchGains())
+        @filter_inputs.on("change input", () => @fetchFilterParam())
+        @EG_inputs.on("change input",     () => @fetchEGParam())
+        @FEG_inputs.on("change input",    () => @fetchFEGParam())
         @fetchParam()
 
     updateCanvas: (name) ->
