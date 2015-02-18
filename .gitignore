@@ -20,3 +20,7 @@ node_modules/
 
 static/IR/
 static/wav/
+
+static/coffee/*.js
+static/js/Wasynth2.js
+static/js/Wasynth2.min.js
