@@ -35,8 +35,8 @@ class MixerView
 
 
     initEvent: ->
-        @console_tracks.on('change', () => @setParams())
-        @console_master.on('change', () => @setParams())
+        @console_tracks.on('input change', () => @setParams())
+        @console_master.on('input change', () => @setParams())
 
     drawGainTracks: (i, data) ->
         v = Math.max.apply(null, data)

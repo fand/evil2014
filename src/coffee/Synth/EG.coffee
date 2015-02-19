@@ -18,8 +18,12 @@ class EG
         delay = @ctx.currentTime unless delay?
         range = max - min
         ratio = (@target.value - @min) / (@max - @min)
+        value = range * ratio
 
-        @target.setValueAtTime(range * ratio, delay)
+        if !(isFinite(value) && value == value)
+            value = 0
+
+        @target.setValueAtTime(value, delay)
         [@min, @max] = [min, max]
 
     getParam: -> adsr: @getADSR(), range: @getRange()
