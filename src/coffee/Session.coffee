@@ -1,6 +1,7 @@
 SessionView = require './SessionView'
 CONSTANT    = require './Constant'
 
+$ = require 'jquery'  # Just for AJAX
 
 # Control the patterns for tracks.
 class Session
@@ -237,14 +238,13 @@ class Session
         song_json = JSON.stringify(@song)
 
         # Save the song via ajax.
-        csrf_token = $('#ajax-form > input[name=csrf_token]').val()
         $.ajax(
             url: '/'
             type: 'POST'
             dataType: 'text'
             data:
                 json: song_json
-                csrf_token: csrf_token
+                csrf_token: @view.getCSRFToken()
         ).done((d) =>
             @view.showSuccess(d, @song.title, @song.creator)
         ).fail((err) =>

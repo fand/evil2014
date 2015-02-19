@@ -70,6 +70,8 @@ class SessionView
         @social_facebook = $('#facebook')
         @social_hatena   = $('#hatena')
 
+    getCSRFToken: -> $('#ajax-form > input[name=csrf_token]').val()
+
     initCanvas: ->
         @canvas_tracks.width  = @canvas_tracks_on.width  = @canvas_tracks_hover.width  = @w*8 + 1
         @canvas_master.width  = @canvas_master_on.width  = @canvas_master_hover.width  = @w + 11
