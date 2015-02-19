@@ -103,9 +103,9 @@ class Keyboard
         @last_key = e.keyCode
 
     onPlayer: (e) ->
-        @player.noteOff(true) if @player.isPlaying()
+        @player.noteOff(true, 0) if @player.isPlaying()
         n = KEYCODE_TO_NOTE[e.keyCode]
-        @player.noteOn(n, true) if n?
+        @player.noteOn(n, true, 0) if n?
 
     onMixer: (e) ->
         # Session

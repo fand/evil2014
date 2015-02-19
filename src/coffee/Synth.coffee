@@ -72,17 +72,17 @@ class Synth
     setGain: (gain) -> @core.setGain(gain)
     getGain: ()     -> @core.gain
 
-    noteOn: (note, force) ->
+    noteOn: (note, force, delay) ->
         if force or not @is_performing
-            @core.setNote(note)
-            @core.noteOn()
+            @core.setNote(note, delay)
+            @core.noteOn(delay)
         if force
             @is_performing = true
 
-    noteOff: (force)->
+    noteOff: (force, delay)->
         @is_performing = false if force
         if not @is_performing
-            @core.noteOff()
+            @core.noteOff(delay)
 
     playAt: (@time) ->
         mytime = @time % @pattern.length

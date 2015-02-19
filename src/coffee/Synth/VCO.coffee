@@ -29,7 +29,7 @@ class VCO
                  @ctx.createOscillator(), @ctx.createOscillator(), @ctx.createOscillator()]
         @oscs[i].detune.setValueAtTime(@fine + FREQ_OFFSET[i], 0) for i in [1...7]
 
-        @setFreq()
+        @setFreq(0)
         @osc.start(0)
         @oscs[i].start(TIME_OFFSET[i]) for i in [0...7]
 
@@ -62,16 +62,16 @@ class VCO
             @osc.connect(@node)
             @node.gain.value = 1.0
 
-    setFreq: ->
+    setFreq: (delay) ->
         note_oct = Math.floor(@note / 12)
         note_shift = @note % 12
         @freq = (Math.pow(2, @octave + note_oct) * Math.pow(CONSTANT.SEMITONE, note_shift) * @freq_key) + @fine
 
         if @shape == 'SUPERSAW' or @shape == 'SUPERRECT'
             for i in [0...7]
-                @oscs[i].frequency.setValueAtTime(@freq, 0)
+                @oscs[i].frequency.setValueAtTime(@freq, delay)
         else
-            @osc.frequency.setValueAtTime(@freq, 0)
+            @osc.frequency.setValueAtTime(@freq, delay)
 
     connect: (@dst) ->
         @osc.connect(@node)

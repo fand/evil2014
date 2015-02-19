@@ -95,8 +95,8 @@ class Player
 
     toggleLoop: -> @session.toggleLoop()
 
-    noteOn: (note, force) -> @synth_now.noteOn(note, force)
-    noteOff: (force)    -> @synth_now.noteOff(force)
+    noteOn: (note, force, delay) -> @synth_now.noteOn(note, force, delay)
+    noteOff: (force, delay)    -> @synth_now.noteOff(force, delay)
 
     playNext: ->
         if @is_playing

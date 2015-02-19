@@ -6,6 +6,7 @@ EG        = require './EG'
 ResFilter = require './ResFilter'
 Noise     = require './Noise'
 
+DELAY = 0.2
 
 # Manages VCO, Noise, ResFilter, EG.
 class SynthCore
@@ -66,7 +67,7 @@ class SynthCore
         @vcos[i].setOctave(oct)
         @vcos[i].setInterval(interval)
         @vcos[i].setFine(fine)
-        @vcos[i].setFreq()
+        @vcos[i].setFreq(DELAY)
         if harmony?
             @is_harmony = (harmony == 'harmony')
 
@@ -85,19 +86,21 @@ class SynthCore
     setGain: (@gain) ->
         @eg.setRange(0.0, @gain)
 
-    noteOn: ->
+    noteOn: (delay) ->
         return if @is_mute
         return if @is_on
+        delay = DELAY unless delay?
         t0 = @ctx.currentTime
-        @eg.noteOn(t0 + 0.1)
-        @feg.noteOn(t0 + 0.1)
+        @eg.noteOn(t0 + delay)
+        @feg.noteOn(t0 + delay)
         @is_on = true
 
     noteOff: ->
         return if not @is_on
+        delay = DELAY unless delay?
         t0 = @ctx.currentTime
-        @eg.noteOff(t0 + 0.1)
-        @feg.noteOff(t0+ 0.1)
+        @eg.noteOff(t0 + delay)
+        @feg.noteOff(t0+ delay)
         @is_on = false
 
     setKey: (key) ->
@@ -124,10 +127,12 @@ class SynthCore
         else
             semitone = Math.floor((note-1)/@scale.length) * 12 + @scale[(note-1) % @scale.length] + shift
 
-    setNote: (@note) ->
+    setNote: (@note, delay) ->
+        t0 = @ctx.currentTime
+        delay = DELAY unless delay?
         for v in @vcos
             v.setNote(@noteToSemitone(@note, v.interval))
-            v.setFreq()
+            v.setFreq(t0 + delay)
 
     mute:   -> @is_mute = true
     demute: -> @is_mute = false
