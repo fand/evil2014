@@ -1,6 +1,8 @@
 SamplerCoreView = require './SamplerCoreView'
 SampleNode = require './SampleNode'
 
+DELAY = 0.2
+
 class SamplerCore
     constructor: (@parent, @ctx, @id) ->
         @node = @ctx.createGain()
@@ -15,16 +17,17 @@ class SamplerCore
 
         @view = new SamplerCoreView(this, @id, @parent.view.dom.find('.sampler-core'))
 
-    noteOn: (notes) ->
+    noteOn: (notes, delay) ->
         return if @is_mute
         time = @ctx.currentTime
+        delay = DELAY unless delay?
         if Array.isArray(notes)
             # return if notes.length == 0
-            @samples[n[0] - 1].noteOn(n[1], time) for n in notes
+            @samples[n[0] - 1].noteOn(n[1], time + delay) for n in notes
         # else
         #     @samples[notes - 1].noteOn(1, time)
 
-    noteOff: ->
+    noteOff: (delay) ->
         t0 = @ctx.currentTime
 
     connect: (dst) ->

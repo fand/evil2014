@@ -282,7 +282,7 @@ class SampleNode
         head_time = time + @buffer_duration * @head
         tail_time = time + @buffer_duration * @tail
         source.playbackRate.value = @speed
-        source.start(0)
+        source.start(time)
         @node_buf.gain.value = gain
         @source_old = source
 

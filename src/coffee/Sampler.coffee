@@ -47,10 +47,10 @@ class Sampler
     setGain: (gain) -> @core.setGain(gain)
     getGain: ()     -> @core.gain
 
-    noteOn: (note) ->
-        @core.noteOn([[note, 1.0]])
+    noteOn: (note, force, delay) ->
+        @core.noteOn([[note, 1.0]], delay)
 
-    noteOff: -> @core.noteOff()
+    noteOff: (delay) -> @core.noteOff(delay)
 
     playAt: (@time) ->
         mytime = @time % @pattern.length
