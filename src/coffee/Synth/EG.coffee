@@ -1,6 +1,6 @@
 # Envelope generator.
 class EG
-    constructor: (@target, @min, @max) ->
+    constructor: (@ctx, @target, @min, @max) ->
         @attack  = 0
         @decay   = 0
         @sustain = 0.0
@@ -14,7 +14,13 @@ class EG
         @release = release / 50000.0
 
     getRange: -> [@min, @max]
-    setRange:  (@min, @max) ->
+    setRange:  (min, max, delay) ->
+        delay = @ctx.currentTime unless delay?
+        range = max - min
+        ratio = (@target.value - @min) / (@max - @min)
+
+        @target.setValueAtTime(range * ratio, delay)
+        [@min, @max] = [min, max]
 
     getParam: -> adsr: @getADSR(), range: @getRange()
     setParam: (p) ->

@@ -28,8 +28,8 @@ class SynthCore
 
         @filter = new ResFilter(@ctx)
 
-        @eg  = new EG(@node.gain, 0.0, @gain)
-        @feg = new EG(@filter.lpf.frequency, 0, 0)
+        @eg  = new EG(@ctx, @node.gain, 0.0, @gain)
+        @feg = new EG(@ctx, @filter.lpf.frequency, 0, 4080)
 
         # Noise generator for resonance.
         @gain_res = @ctx.createGain()
@@ -58,7 +58,7 @@ class SynthCore
         @eg.setParam(p.eg) if p.eg?
         @feg.setParam(p.feg) if p.feg?
         if p.filter?
-            @feg.setRange(@feg.getRange()[0], p.filter[0])
+            @feg.setRange(@feg.getRange()[0], p.filter[0], @ctx.currentTime)
             @filter.setQ(p.filter[1])
         @view.setParam(p)
 
@@ -75,7 +75,7 @@ class SynthCore
     setFEGParam: (a, d, s, r) -> @feg.setADSR(a, d, s, r)
 
     setFilterParam: (freq, q) ->
-        @feg.setRange(80, Math.pow(freq/1000, 2.0) * 25000 + 80)
+        @feg.setRange(80, Math.pow(freq/1000, 2.0) * 25000 + 80, @ctx.currentTime)
         @filter.setQ(q)
         @gain_res.gain.value = 0.1 * (q / 1000.0) if q > 1
 
@@ -84,7 +84,7 @@ class SynthCore
         @gains[i].gain.value = (gain / 100.0) * 0.3
 
     setGain: (@gain) ->
-        @eg.setRange(0.0, @gain)
+        @eg.setRange(0.0, @gain, @ctx.currentTime)
 
     noteOn: (delay) ->
         return if @is_mute
