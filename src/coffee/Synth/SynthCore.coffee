@@ -100,7 +100,7 @@ class SynthCore
         delay = DELAY unless delay?
         t0 = @ctx.currentTime
         @eg.noteOff(t0 + delay)
-        @feg.noteOff(t0+ delay)
+        @feg.noteOff(t0 + delay)
         @is_on = false
 
     setKey: (key) ->

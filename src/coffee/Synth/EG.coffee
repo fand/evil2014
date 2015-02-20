@@ -32,17 +32,14 @@ class EG
         @setRange(p.range[0], p.range[1])
 
     noteOn: (time) ->
-        @target.cancelScheduledValues(time)
-
-        @target.setValueAtTime(@target.value, time)
-
-        @target.linearRampToValueAtTime(@max, time + @attack)
-        @target.linearRampToValueAtTime(@sustain * (@max - @min) + @min, (time + @attack + @decay))
+        @target.cancelScheduledValues(time - 0.001)
+        @target.setValueAtTime(@min, time)
+        @target.linearRampToValueAtTime(@max, time + @attack)  # Attack
+        @target.linearRampToValueAtTime(@sustain * (@max - @min) + @min, (time + @attack + @decay)) # Decay
 
     noteOff: (time) ->
         @target.linearRampToValueAtTime(@min, time + @release)
-        @target.linearRampToValueAtTime(0, time + @release + 0.001)
-        @target.cancelScheduledValues(time + @release + 0.002)
+        @target.cancelScheduledValues(time + @release + 0.001)
 
 
 module.exports = EG
