@@ -1,4 +1,5 @@
 FX = require './FX'
+ReverbView = require './ReverbView'
 
 IR_URL =
     'BIG_SNARE'               : 'static/IR/H3000/206_BIG_SNARE.wav'

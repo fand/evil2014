@@ -1,4 +1,5 @@
 FX = require './FX'
+FuzzView = require './FuzzView'
 
 class Fuzz extends FX
     constructor: (@ctx) ->
