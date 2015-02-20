@@ -17,16 +17,16 @@ class DelayView extends FXView
 
     initEvent: ->
         super()
-        @wet.on('change', () =>
+        @wet.on('change input', () =>
             @model.setParam(wet: parseFloat(@wet.val()) / 100.0)
         )
-        @delay.on('change', () =>
+        @delay.on('change input', () =>
             @model.setParam(delay: parseFloat(@delay.val()) / 1000.0)
         )
-        @feedback.on('change', () =>
+        @feedback.on('change input', () =>
             @model.setParam(feedback: parseFloat(@feedback.val()) / 100.0)
         )
-        @lofi.on('change', () =>
+        @lofi.on('change input', () =>
             @model.setParam(lofi: parseFloat(@lofi.val())* 5.0 / 100.0)
         )
 

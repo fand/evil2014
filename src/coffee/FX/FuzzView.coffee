@@ -16,16 +16,16 @@ class FuzzView extends FXView
 
     initEvent: ->
         super()
-        @input.on('change', () =>
+        @input.on('change input', () =>
             @model.setParam(input: parseFloat(@input.val()) / 100.0)
         )
-        @output.on('change', () =>
+        @output.on('change input', () =>
             @model.setParam(output: parseFloat(@output.val()) / 100.0)
         )
-        @type.on('change', () =>
+        @type.on('change input', () =>
             @model.setParam(type: @type.val())
         )
-        @gain.on('change', () =>
+        @gain.on('change input', () =>
             @model.setParam(gain: parseFloat(@gain.val())/ 100.0)
         )
 

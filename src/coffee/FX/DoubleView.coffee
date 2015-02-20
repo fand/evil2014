@@ -14,10 +14,10 @@ class DoubleView extends FXView
 
     initEvent: ->
         super()
-        @delay.on('change', () =>
+        @delay.on('change input', () =>
             @model.setParam(delay: parseFloat(@delay.val()) / 1000.0)
         )
-        @width.on('change', () =>
+        @width.on('change input', () =>
             @model.setParam(width: parseFloat(@width.val()) / 200.0 + 0.5)  # [0.5, 1.0]
         )
 

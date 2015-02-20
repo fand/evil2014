@@ -15,11 +15,11 @@ class ReverbView extends FXView
 
     initEvent: ->
         super()
-        @name.on('change', () =>
+        @name.on('change input', () =>
             @name_synth.val(@name.val())
             @model.setIR(@name.val())
         )
-        @wet.on('change', () =>
+        @wet.on('change input', () =>
             @model.setParam(wet: parseFloat(@wet.val()) / 100.0)
         )
 

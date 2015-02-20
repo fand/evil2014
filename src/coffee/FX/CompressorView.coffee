@@ -19,25 +19,25 @@ class CompressorView extends FXView
 
     initEvent: ->
         super()
-        @input.on('change', () =>
+        @input.on('change input', () =>
             @model.setParam(input: parseFloat(@input.val()) / 100.0)
         )
-        @output.on('change', () =>
+        @output.on('change input', () =>
             @model.setParam(output: parseFloat(@output.val()) / 100.0)
         )
-        @attack.on('change', () =>
+        @attack.on('change input', () =>
             @model.setParam(attack: parseFloat(@attack.val()) / 1000.0)
         )
-        @release.on('change', () =>
+        @release.on('change input', () =>
             @model.setParam(release: parseFloat(@release.val()) / 1000.0)
         )
-        @threshold.on('change', () =>
+        @threshold.on('change input', () =>
             @model.setParam(threshold: (parseFloat(@threshold.val()) / -10.0))   # [0, 100]
         )
-        @ratio.on('change', () =>
+        @ratio.on('change input', () =>
             @model.setParam(ratio: parseInt(@ratio.val()))
         )
-        @knee.on('change', () =>
+        @knee.on('change input', () =>
             @model.setParam(knee: parseFloat(@knee.val()) / 1000.0)
         )
 
