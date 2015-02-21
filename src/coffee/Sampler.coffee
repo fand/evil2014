@@ -18,6 +18,7 @@ class Sampler
         @view = new SamplerView(this, @id)
         @core = new SamplerCore(this, @ctx, @id)
 
+        @is_on         = true
         @is_sustaining = false
         @session = @player.session
 
@@ -56,7 +57,7 @@ class Sampler
     playAt: (@time) ->
         mytime = @time % @pattern.length
         @view.playAt(mytime)
-        return if (not @pattern_is_on)
+        return if (not @is_on)
         if @pattern[mytime] != 0
             notes = @pattern[mytime]
             @core.noteOn(notes)
@@ -76,8 +77,8 @@ class Sampler
         @pattern       = @pattern_obj.pattern
         @pattern_name  = @pattern_obj.name
         @pattern_is_on = @pattern_obj.isOn
-        if force? and force
-            @pattern_is_on = true
+        if @pattern_is_on or (force? and force)
+            @is_on = true
         @view.setPattern(@pattern_obj)
 
     getPattern: () ->
