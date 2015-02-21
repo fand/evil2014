@@ -162,9 +162,9 @@ class Reverb extends FX
         @view.setParam(p)
 
     getParam: (p) ->
-        effect: 'Reverb'
-        name: @name
-        wet: @wet.gain.value
+        name : 'Reverb'
+        name : @name
+        wet  : @wet.gain.value
 
 
 module.exports = Reverb

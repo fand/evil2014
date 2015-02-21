@@ -210,15 +210,15 @@ class Synth
         @effects = []
 
         for e in effects_new
-            if e.effect == 'Fuzz'
+            if e.name == 'Fuzz'
                 fx = new Fuzz(@ctx)
-            else if e.effect == 'Delay'
+            else if e.name == 'Delay'
                 fx = new Delay(@ctx)
-            else if e.effect == 'Reverb'
+            else if e.name == 'Reverb'
                 fx = new Reverb(@ctx)
-            else if e.effect == 'Comp'
+            else if e.name == 'Comp'
                 fx = new Compressor(@ctx)
-            else if e.effect == 'Double'
+            else if e.name == 'Double'
                 fx = new Double(@ctx)
 
             @insertEffect(fx)

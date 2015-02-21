@@ -39,11 +39,11 @@ class Fuzz extends FX
         @view.setParam(p)
 
     getParam: (p) ->
-        effect: 'Fuzz'
-        type: @type
-        gain: @gain
-        input: @in.gain.value
-        output: @out.gain.value
+        name   : 'Fuzz'
+        type   : @type
+        gain   : @gain
+        input  : @in.gain.value
+        output : @out.gain.value
 
 
 module.exports = Fuzz

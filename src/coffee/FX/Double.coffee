@@ -33,8 +33,8 @@ class Double extends FX
         @view.setParam(p)
 
     getParam: (p) ->
-        effect: 'Double'
-        delay: @delay.delayTime.value
-        width: @pos
+        name  : 'Double'
+        delay : @delay.delayTime.value
+        width : @pos
 
 module.exports = Double

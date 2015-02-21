@@ -112,5 +112,7 @@ class SidebarView
     setKey:   (k) -> @master_key.val(k)
     setScale: (s) -> @master_scale.val(s)
 
+    readMasterEffect: (fx) =>
+        fx.appendTo(@master_effects)
 
 module.exports = SidebarView

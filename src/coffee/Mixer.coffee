@@ -108,12 +108,20 @@ class Mixer
         @view.readPans(@pan_tracks, @pan_master)
 
     getParam: ->
-        gain_tracks: @gain_tracks, gain_master: @gain_master, pan_tracks: @pan_tracks, pan_master: @pan_master
+        gain_tracks    : @gain_tracks
+        gain_master    : @gain_master
+        pan_tracks     : @pan_tracks
+        pan_master     : @pan_master
+        effects_master : f.getParam() for f in @effects_master
 
     readParam: (p) ->
         return if not p?
         @readGains(p.gain_tracks, p.gain_master)
         @readPans(p.pan_tracks, p.pan_master)
+        return if not p.effects_master?
+        for f, i in p.effects_master
+            @addMasterEffect(f.name)
+            @effects_master[i].setParam(f)
 
     changeSynth: (id, synth) ->
         synth.connect(@panners[id].in)

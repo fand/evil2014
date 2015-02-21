@@ -36,5 +36,9 @@ class Sidebar
     setKey:   (k) -> @view.setKey(k)
     setScale: (s) -> @view.setScale(s)
 
+    update: ->
+        for f in @mixer.effects_master
+            @view.readMasterEffect(f)
+
 
 module.exports = Sidebar

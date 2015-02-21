@@ -29,7 +29,7 @@ class Compressor extends FX
         @view.setParam(p)
 
     getParam: (p) ->
-        effect    : 'Compressor'
+        name      : 'Compressor'
         attack    :  @comp.attack.value
         release   : @comp.release.value
         threshold : @comp.threshold.value

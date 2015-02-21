@@ -40,7 +40,7 @@ class Delay extends FX
         @view.setParam(p)
 
     getParam: (p) ->
-        effect   : 'Delay'
+        name     : 'Delay'
         delay    : @delay.delayTime.value
         feedback : @feedback.gain.value
         lofi     : @lofi.Q.value

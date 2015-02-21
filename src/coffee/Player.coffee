@@ -218,6 +218,7 @@ class Player
         @session.setSynth(@synth)
         @session.readSong(@song)
         @mixer.readParam(@song.mixer)
+        @sidebar.update()
 
         @view.setSynthNum(@synth.length, @synth_pos)
         @resetSceneLength()
