@@ -8,7 +8,7 @@ class ReverbView extends FXView
 
         super(@model, @dom)
 
-        @name   = @dom.find('[name=name]')
+        @name = @dom.find('[name=name]')
         @wet  = @dom.find('[name=wet]')
 
         @initEvent()
@@ -16,7 +16,7 @@ class ReverbView extends FXView
     initEvent: ->
         super()
         @name.on('change input', () =>
-            @name_synth.val(@name.val())
+            #@name.val(@name.val())
             @model.setIR(@name.val())
         )
         @wet.on('change input', () =>
