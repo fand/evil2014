@@ -133,13 +133,14 @@ class Reverb extends FX
         @setIR('BIG_SNARE')
 
         @view = new ReverbView(this)
+        @view.setParam(@getParam())
 
-    setIR: (@name) ->
-        if IR_LOADED[name]?
-            @reverb.buffer = IR_LOADED[name]
+    setIR: (@IRname) ->
+        if IR_LOADED[@IRname]?
+            @reverb.buffer = IR_LOADED[@IRname]
             return
 
-        url = IR_URL[name]
+        url = IR_URL[@IRname]
         return if not url?
 
         req = new XMLHttpRequest()
@@ -150,21 +151,22 @@ class Reverb extends FX
                 req.response,
                 ((buffer) =>
                     @reverb.buffer = buffer
-                    IR_LOADED[name] = buffer
+                    IR_LOADED[@IRname] = buffer
+                    @setWet(@wet)
                 ),
                 (err) => console.log('ajax error'); console.log(err)
             )
         req.send()
 
     setParam: (p) ->
-        @setIR(p.name) if p.name?
+        @setIR(p.IRname) if p.IRname?
         @setWet(p.wet) if p.wet?
         @view.setParam(p)
 
     getParam: (p) ->
-        name : 'Reverb'
-        name : @name
-        wet  : @wet.gain.value
+        name   : 'Reverb'
+        IRname : @IRname
+        wet    : @wet.gain.value
 
 
 module.exports = Reverb

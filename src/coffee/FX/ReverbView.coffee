@@ -8,25 +8,23 @@ class ReverbView extends FXView
 
         super(@model, @dom)
 
-        @name = @dom.find('[name=name]')
+        @IRname = @dom.find('[name=name]')
         @wet  = @dom.find('[name=wet]')
 
         @initEvent()
 
     initEvent: ->
         super()
-        @name.on('change input', () =>
-            #@name.val(@name.val())
-            @model.setIR(@name.val())
+        @IRname.on('change input', () =>
+            @model.setIR(@IRname.val())
         )
         @wet.on('change input', () =>
             @model.setParam(wet: parseFloat(@wet.val()) / 100.0)
         )
 
     setParam: (p) ->
-        @name.val(p.name) if p.name?
+        @IRname.val(p.IRname) if p.IRname?
         @wet.val(p.wet * 100) if p.wet?
-
 
 
 module.exports = ReverbView
