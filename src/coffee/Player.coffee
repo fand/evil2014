@@ -7,7 +7,8 @@ Sidebar = require './Sidebar'
 Synth   = require './Synth'
 Sampler = require './Sampler'
 
-T = window   # TODO: worker-timer
+T = require 'worker-timer'
+TID = null
 
 class Player
     constructor: ->
@@ -60,10 +61,10 @@ class Player
     play: ->
         @is_playing = true
         @session.play()
-        T.setTimeout(( =>
+        TID = T.setTimeout(( =>
             # s.play() for s in @synth
             @playNext()
-         ), 150)
+         ), 150, TID)
 
     stop: ->
         s.stop() for s in @synth
@@ -112,7 +113,7 @@ class Player
                 @session.beat()
 
             @time++
-            T.setTimeout(( => @playNext()), @duration)
+            TID = T.setTimeout(( => @playNext()), @duration, TID)
         else
             @stop()
 

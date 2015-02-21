@@ -24,9 +24,8 @@ SCALE_LIST =
     CHROMATIC:  [0,1,2,3,4,5,6,7,8,9,10,11]
     'Harm-minor': [0,2,3,5,7,8,11]
 
-
-#T2 = new MutekiTimer()
-T2 = window
+T = require 'worker-timer'
+TID = null
 
 # Manages SynthCore, SynthView.
 class Synth
@@ -117,13 +116,13 @@ class Synth
 
         # sustain end
         else if @pattern[mytime] == 'end'
-            T2.setTimeout((() => @core.noteOff()), @duration - 10)
+            TID = T.setTimeout((() => @core.noteOff()), @duration - 10, TID)
 
         # single note
         else
             @core.setNote(@pattern[mytime])
             @core.noteOn()
-            T2.setTimeout((() => @core.noteOff()), @duration - 10)
+            TID = T.setTimeout((() => @core.noteOff()), @duration - 10, TID)
 
     play: () ->
         @view.play()

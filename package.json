@@ -34,6 +34,7 @@
     "require-directory": "^2.0.0",
     "underscore": "^1.7.0",
     "vinyl-source-stream": "^1.0.0",
-    "watchify": "^2.2.1"
+    "watchify": "^2.2.1",
+    "worker-timer": "git://github.com/fand/worker-timer"
   }
 }
