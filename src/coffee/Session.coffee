@@ -69,12 +69,15 @@ class Session
             return
 
         for i in [0...@synth.length]
-            continue if not @song.tracks[i].patterns[@scene_pos]?
-            pat = @song.tracks[i].patterns[@scene_pos]
-            if pat? and pat != null
-                @synth[i].setPattern(pat)
-                @scene_length = Math.max(@scene_length, pat.pattern.length)
-                @current_cells[i] = pos
+            if @song.tracks[i].patterns[@scene_pos]?
+                pat = @song.tracks[i].patterns[@scene_pos]
+                if pat? and pat != null
+                    @synth[i].setPattern(pat)
+                    @scene_length = Math.max(@scene_length, pat.pattern.length)
+                    @current_cells[i] = pos
+            else
+                @synth[i].clearPattern()
+                @current_cells[i] = null
 
         @player.readScene(@song.master[@scene_pos]) if @song.master[@scene_pos]?
         @player.setSceneLength(@scene_length)
