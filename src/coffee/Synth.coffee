@@ -3,6 +3,13 @@ _ = require 'underscore'
 SynthView = require './SynthView'
 SynthCore = require './Synth/SynthCore'
 Panner    = require './Panner'
+
+Fuzz       = require './FX/Fuzz'
+Delay      = require './FX/Delay'
+Reverb     = require './FX/Reverb'
+Compressor = require './FX/Compressor'
+Double     = require './FX/Double'
+
 CONSTANT  = require './Constant'
 
 
