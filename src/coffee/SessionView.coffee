@@ -267,7 +267,7 @@ class SessionView
                 if t? and t.patterns[y]?
                     @drawCellTracks(t.patterns[y], x, y)
                 else
-                    @drawEmpty(@ctx_tracks, x, y)
+                    @drawEmpty(@ctx_tracks, x, y, t?)
 
         # Draw master
         @drawMasterName()
@@ -310,11 +310,20 @@ class SessionView
         @ctx_master.fillStyle = @color[1]
         @ctx_master.fillText(p.name, 24, (y + 1) * @h - 6)
 
-    drawEmpty: (ctx, x, y) ->
+    drawEmpty: (ctx, x, y, drawStop) ->
         @clearCell(ctx, x, y)
+        x0 = x * @w + 2
+        y0 = y * @h + 2
         ctx.strokeStyle = @color[0]
         ctx.lineWidth = 1
-        ctx.strokeRect(x * @w + 2, y * @h + 2, @w-2, @h-2)
+        ctx.strokeRect(x0, y0, @w-2, @h-2)
+
+        return unless drawStop
+
+        ctx.strokeStyle = '#bbb'
+        ctx.fillStyle   = '#eee'
+        ctx.strokeRect(x0 + 5, y0 + 5, 8, 8)
+        ctx.fillRect(x0 + 5, y0 + 5, 8, 8)
 
     drawEmptyMaster: (y) ->
         @clearCell(@ctx_master, 0, y)
@@ -367,8 +376,12 @@ class SessionView
         if cells?
             @current_cells = cells
 
-        for i in [0...@current_cells.length]
-            @drawActive(i, @current_cells[i]) if @current_cells[i]?
+        for c, i in @current_cells
+            if c? and c != null
+                @drawActive(i, c)
+            else
+                @clearActive(i)
+
 
         @drawActiveMaster(pos)
         @scene_pos = pos
@@ -469,10 +482,13 @@ class SessionView
 
     # Cue the cells to play
     cueTracks: (x, y) ->
-        if @song.tracks[x]? and @song.tracks[x].patterns[y]?
-            @model.cuePattern(x, y)
-            @ctx_tracks_on.drawImage(@img_play, 36, 0, 18, 18, x*@w + 4, y*@h + 4, 15, 16)
-            window.setTimeout(( => @ctx_tracks_on.clearRect(x*@w+4, y*@h+4, 15, 16)), 100)
+        if @song.tracks[x]?
+            if @song.tracks[x].patterns[y]?
+                @model.cuePattern(x, y)
+                @ctx_tracks_on.drawImage(@img_play, 36, 0, 18, 18, x*@w + 4, y*@h + 4, 15, 16)
+                window.setTimeout(( => @ctx_tracks_on.clearRect(x*@w+4, y*@h+4, 15, 16)), 100)
+            else
+                @model.cueOff(x)
 
     cueMaster: (x, y) ->
         if @song.master[y]?

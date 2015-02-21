@@ -33,17 +33,19 @@ class Synth
     constructor: (@ctx, @id, @player, @name) ->
         @type = 'REZ'
         @name = 'Synth #' + @id if not @name?
-        @pattern_name = 'pattern 0'
-        @pattern = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-        @pattern_obj = name: @pattern_name, pattern: @pattern, isOn: true
+
+        @pattern_name  = 'pattern 0'
+        @pattern       = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        @pattern_obj   = name: @pattern_name, pattern: @pattern, isOn: true
         @pattern_is_on = true
+
         @time = 0
         @scale_name = 'Major'
         @scale = SCALE_LIST[@scale_name]
         @view = new SynthView(this, @id)
         @core = new SynthCore(this, @ctx, @id)
 
-        @is_on = false
+        @is_on         = true
         @is_sustaining = false
         @is_performing = false
         @session = @player.session
@@ -96,7 +98,7 @@ class Synth
         mytime = @time % @pattern.length
         @view.playAt(mytime)
         return if @is_performing
-        return if (not @pattern_is_on)
+        return if (not @is_on)
 
         # off
         if @pattern[mytime] == 0
@@ -138,8 +140,8 @@ class Synth
         @pattern       = @pattern_obj.pattern
         @pattern_name  = @pattern_obj.name
         @pattern_is_on = @pattern_obj.isOn
-        if force? and force
-            @pattern_is_on = true
+        if @pattern_is_on or (force? and force)
+            @is_on = true
         @view.setPattern(@pattern_obj)
 
     getPattern: () ->
@@ -269,6 +271,9 @@ class Synth
 
         fx.disconnect()
         @effects.splice(i, 1)
+
+    off: ->
+        @is_on = false
 
 
 module.exports = Synth

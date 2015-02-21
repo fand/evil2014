@@ -42,8 +42,11 @@ class Session
         @savePatterns()
         @is_waiting_next_pattern = false
         for q in @cue_queue
-            pat = @song.tracks[q[0]].patterns[q[1]]
-            @synth[q[0]].setPattern(pat, true)
+            if q[1] == null   # waiting for being killed
+                @synth[q[0]].off()
+            else
+                pat = @song.tracks[q[0]].patterns[q[1]]
+                @synth[q[0]].setPattern(pat, true)
             @current_cells[q[0]] = q[1]
         @view.drawScene(@scene_pos, @current_cells)
         @next_pattern_pos = []
@@ -112,6 +115,11 @@ class Session
     cueScene: (scene_num) ->
         @is_waiting_next_scene = true
         @next_scene_pos = scene_num
+
+    cueOff: (synth_num) ->
+        @is_waiting_next_pattern = true
+        @next_pattern_pos[synth_num] = null
+        @cue_queue.push([synth_num, null])
 
     next: () ->
         @nextScene()
