@@ -931,6 +931,21 @@ canvas:active {
     margin-top: 5px;
 }
 
+#sidebar-tracks .is-on {
+    display: inline-block;
+    width:  24px;
+    height: 24px;
+    text-align: center;
+    line-height: 18px;
+    margin: 0 32px 12px;
+}
+#sidebar-tracks .is-on-label {
+    display: inline-block;
+    width: 80px;
+    line-height: 10px;
+    padding-right: 36px;
+}
+
 
 
 /* Sequencer Header */
