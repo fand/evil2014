@@ -9,9 +9,10 @@ class Sampler
         @type = 'SAMPLER'
         @name = 'Sampler #' + @id if not @name?
 
-        @pattern_name = 'pattern 0'
-        @pattern = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
-        @pattern_obj = name: @pattern_name, pattern: @pattern
+        @pattern_name  = 'pattern 0'
+        @pattern       = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+        @pattern_obj   = name: @pattern_name, pattern: @pattern
+        @pattern_is_on = true
 
         @time = 0
         @view = new SamplerView(this, @id)
@@ -20,9 +21,9 @@ class Sampler
         @is_sustaining = false
         @session = @player.session
 
-        @send = @ctx.createGain()
-        @send.gain.value = 1.0
+        @send   = @ctx.createGain()
         @return = @ctx.createGain()
+        @send.gain.value   = 1.0
         @return.gain.value = 1.0
         @core.connect(@send)
         @send.connect(@return)
@@ -55,6 +56,7 @@ class Sampler
     playAt: (@time) ->
         mytime = @time % @pattern.length
         @view.playAt(mytime)
+        return if (not @pattern_is_on)
         if @pattern[mytime] != 0
             notes = @pattern[mytime]
             @core.noteOn(notes)
@@ -70,13 +72,16 @@ class Sampler
         @core.noteOff()
 
     setPattern: (_pattern_obj) ->
-        @pattern_obj = _.extend({}, _pattern_obj)
-        @pattern = @pattern_obj.pattern
-        @pattern_name = @pattern_obj.name
+        @pattern_obj   = _.extend({isOn: true}, _pattern_obj)
+        @pattern       = @pattern_obj.pattern
+        @pattern_name  = @pattern_obj.name
+        @pattern_is_on = @pattern_obj.isOn
+        if force? and force
+            @pattern_is_on = true
         @view.setPattern(@pattern_obj)
 
     getPattern: () ->
-        @pattern_obj = name: @pattern_name, pattern: @pattern
+        @pattern_obj = name: @pattern_name, pattern: @pattern, isOn: @pattern_is_on
         _.extend({}, @pattern_obj)
 
     clearPattern: () ->

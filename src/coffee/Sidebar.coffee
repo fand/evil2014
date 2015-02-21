@@ -7,10 +7,12 @@ class Sidebar
 
     show: (@song, @select_pos) ->
         if @select_pos.type == 'tracks'
-            return if @sidebar_pos.x == @select_pos.x and @sidebar_pos.type == @select_pos.type
+            return if @sidebar_pos.x == @select_pos.x and @sidebar_pos.y == @select_pos.y and @sidebar_pos.type == @select_pos.type
             @saveTracksEffect(@sidebar_pos.x)
             @sidebar_pos = @select_pos
-            @view.showTracks(@player.synth[@select_pos.x])
+            synth = @player.synth[@select_pos.x]
+            console.log @session.song
+            @view.showTracks(synth, @session.song.tracks[@select_pos.x].patterns[@select_pos.y])
         else
             return if @sidebar_pos.y == @select_pos.y and @sidebar_pos.type == @select_pos.type
             @sidebar_pos = @select_pos
@@ -39,6 +41,11 @@ class Sidebar
     update: ->
         for f in @mixer.effects_master
             @view.readMasterEffect(f)
+
+    setPatternOnOff: (val) ->
+        console.log 'setpatternfdssa'
+        console.log val
+        @session.song.tracks[@select_pos.x].patterns[@select_pos.y].isOn = val
 
 
 module.exports = Sidebar

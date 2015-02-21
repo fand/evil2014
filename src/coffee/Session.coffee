@@ -40,11 +40,10 @@ class Session
     # Read patterns for cued tracks.
     nextPattern: () ->
         @savePatterns()
-
         @is_waiting_next_pattern = false
         for q in @cue_queue
             pat = @song.tracks[q[0]].patterns[q[1]]
-            @synth[q[0]].setPattern(pat)
+            @synth[q[0]].setPattern(pat, true)
             @current_cells[q[0]] = q[1]
         @view.drawScene(@scene_pos, @current_cells)
         @next_pattern_pos = []
@@ -53,7 +52,6 @@ class Session
     # Read patterns for the next scene.
     nextScene: (pos) ->
         @savePatterns()
-
         @is_waiting_next_scene = false
         if not pos?
             @scene_pos++
@@ -71,10 +69,16 @@ class Session
         for i in [0...@synth.length]
             if @song.tracks[i].patterns[@scene_pos]?
                 pat = @song.tracks[i].patterns[@scene_pos]
+                console.log 'pat'
+                console.log pat
                 if pat? and pat != null
                     @synth[i].setPattern(pat)
                     @scene_length = Math.max(@scene_length, pat.pattern.length)
-                    @current_cells[i] = pos
+                    pat.isOn = true unless pat.isOn?
+                    if pat.isOn
+                        @current_cells[i] = pos
+                    else
+                        @current_cells[i] = null
             else
                 @synth[i].clearPattern()
                 @current_cells[i] = null

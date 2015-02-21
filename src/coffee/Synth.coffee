@@ -35,7 +35,8 @@ class Synth
         @name = 'Synth #' + @id if not @name?
         @pattern_name = 'pattern 0'
         @pattern = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-        @pattern_obj = name: @pattern_name, pattern: @pattern
+        @pattern_obj = name: @pattern_name, pattern: @pattern, isOn: true
+        @pattern_is_on = true
         @time = 0
         @scale_name = 'Major'
         @scale = SCALE_LIST[@scale_name]
@@ -95,6 +96,7 @@ class Synth
         mytime = @time % @pattern.length
         @view.playAt(mytime)
         return if @is_performing
+        return if (not @pattern_is_on)
 
         # off
         if @pattern[mytime] == 0
@@ -131,14 +133,17 @@ class Synth
     pause: (time) ->
         @core.noteOff()
 
-    setPattern: (_pattern_obj) ->
-        @pattern_obj  = _.extend({}, _pattern_obj)
-        @pattern      = @pattern_obj.pattern
-        @pattern_name = @pattern_obj.name
+    setPattern: (_pattern_obj, force) ->
+        @pattern_obj   = _.extend({isOn: true}, _pattern_obj)
+        @pattern       = @pattern_obj.pattern
+        @pattern_name  = @pattern_obj.name
+        @pattern_is_on = @pattern_obj.isOn
+        if force? and force
+            @pattern_is_on = true
         @view.setPattern(@pattern_obj)
 
     getPattern: () ->
-        @pattern_obj = name: @pattern_name, pattern: @pattern
+        @pattern_obj = name: @pattern_name, pattern: @pattern, isOn: @pattern_is_on
         _.extend({}, @pattern_obj)
 
     clearPattern: () ->

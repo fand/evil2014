@@ -25,6 +25,9 @@ class SidebarView
         @add_tracks     = @tracks.find('.add-type')
         @add_tracks_btn = @tracks.find('.add-btn')
 
+        @pattern_is_on       = @tracks.find('.is-on')
+        @pattern_is_on_label = @tracks.find('.is-on-label')
+
         @initEvent()
 
         # init Master Effect
@@ -54,6 +57,10 @@ class SidebarView
             @addTracksEffect(@add_tracks.val())
         )
 
+        @pattern_is_on.on('change', =>
+            @setPatternOnOff(@pattern_is_on.prop('checked'))
+        )
+
     saveMaster: ->
         name  = @master_name.val()
         bpm   = @master_bpm.val()
@@ -75,7 +82,10 @@ class SidebarView
     saveTracksEffect: ->
         (f.getParam() for f in @tracks_effects)
 
-    showTracks: (track) ->
+    showTracks: (track, pattern) ->
+        is_on = if pattern.isOn? then pattern.isOn else true
+        @pattern_is_on.prop 'checked', is_on
+        @setPatternOnOff(is_on)
         @tracks_effects.find('.sidebar-effect').remove()
         f.appendTo(@tracks_effects) for f in track.effects
         @wrapper.css('left', '0px')
@@ -84,9 +94,9 @@ class SidebarView
         @hideMasterControl()
 
         s = ''
-        @master_name.val(o.name)   if o.name?
-        s += o.bpm + ' BPM 　'   if o.bpm?
-        s += o.key + ' 　'   if o.key?
+        @master_name.val(o.name) if o.name?
+        s += o.bpm + ' BPM ' if o.bpm?
+        s += o.key + '     ' if o.key?
         s += o.scale if o.scale?
         @master_display_label.text(s)
 
@@ -112,7 +122,12 @@ class SidebarView
     setKey:   (k) -> @master_key.val(k)
     setScale: (s) -> @master_scale.val(s)
 
-    readMasterEffect: (fx) =>
+    readMasterEffect: (fx) ->
         fx.appendTo(@master_effects)
+
+    setPatternOnOff: (val) ->
+        @pattern_is_on_label.html('Default: ' + if val then 'On' else 'Off')
+        @model.setPatternOnOff(val)
+
 
 module.exports = SidebarView

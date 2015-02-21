@@ -96,6 +96,8 @@
             <div class="sidebar-effects">
               <fieldset class="sidebar-module sidebar-name">
                 <legend><input name="name" type="text" value="Synth #0" /></legend>
+                <input class="is-on" name="isOn" type="checkbox" />
+                <span class="is-on-label">Default: On</span>
               </fieldset>
             </div>
 
