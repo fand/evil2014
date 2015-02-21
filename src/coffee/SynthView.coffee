@@ -402,7 +402,6 @@ class SynthView
 
     plusPattern: ->
         return if @page_total == 8
-        @pattern = @pattern.concat([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
         @page_total++
         @model.plusPattern()
         @drawPattern()
