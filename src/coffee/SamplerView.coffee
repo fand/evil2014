@@ -263,10 +263,11 @@ class SamplerView
         @markers.find('.marker-total').text(@page_total)
         @pos_markers.filter((i) => i  < @page_total).each((i) =>
             @pos_markers.eq(i).on('mousedown', () =>
-                if @page < i
+                currentPage = @page
+                if currentPage < i
                     while @page != i
                         @model.player.forward()
-                if i < @page
+                if i < currentPage
                     while @page != i
                         @model.player.backward(true)  # force
             )
