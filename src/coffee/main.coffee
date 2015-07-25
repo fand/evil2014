@@ -2,6 +2,7 @@ $ = require 'jquery'
 
 Player   = require './Player'
 Keyboard = require './Keyboard'
+Midi     = require './Midi'
 
 # ------------------------------------------------------------------------------
 # CONSTANT
@@ -30,6 +31,7 @@ initEvil = ->
     window.CONTEXT  = new webkitAudioContext()
     window.player   = new Player()
     window.keyboard = new Keyboard(window.player)
+    window.midi     = new Midi(window.player)
 
     footer_size = $(window).height()/2 - 300
     $('footer').css('height', footer_size + 'px')
