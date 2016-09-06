@@ -2,13 +2,11 @@ const top = (req, res) => {
   const ua = req.headers['user-agent'];
 
   if (ua.match(/msie/)) {
-      return res.send('ie.tx'); //TODO:render
+      return res.render('ie', { phone: 1 });
   }
   if (ua.match(/iPhone|iPod|Android/i)) {
-      return res.send('smartphone.tx');//TODO:render
+      return res.render('smartphone', { phone: 1 });
   }
-
-  // Render route.
   res.render('index');
 };
 

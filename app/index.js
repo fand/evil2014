@@ -18,6 +18,6 @@ app.get('/mobile', routes.mobile);
 app.get('/', routes.top);
 app.post('/', routes.saveSong);
 app.get('/:id', routes.getSong);
-app.get('/*', routes.notFound);
+app.get('*', routes.notFound);
 
 app.listen(3000);
