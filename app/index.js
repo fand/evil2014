@@ -1,15 +1,17 @@
 const express = require('express');
 const morgan  = require('morgan');
 const path    = require('path');
-const ejs     = require('ejs');
+const ect     = require('ect');
+const ectRenderer = ect({ watch: true, root: __dirname + '/views', ext : '.ect' });
+
 
 const routes   = require('./routes');
 
 const app = express();
 app.use(morgan('combined'));
-app.engine('ejs', ejs.renderFile);
 app.set('views', path.resolve(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'ect');
+app.engine('ect', ectRenderer.render);
 app.use('/static', express.static('static'));
 
 app.get('/mobile', routes.mobile);
