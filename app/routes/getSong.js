@@ -6,8 +6,8 @@ const getSong = (req, res) => {
     if (err) {
       res.send('not found');
     }
-    console.log(rows[0]);
-    res.render('index', { song: rows[0] });
+    const song = rows[0].json;
+    res.render('index', { song: song });
   });
 };
 
