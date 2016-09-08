@@ -1,6 +1,4 @@
-: cascade "include/layout.tx" { debug => $debug }
-
-: override content -> {
+<% extend 'layout' %>
 
 <div id="top">
   <div id="top-logo">
@@ -40,7 +38,7 @@
 <div id="btn-save" class="fa fa-save"></div>
 <!-- <div id="btn-clear" class="fa fa-file-o"></div> -->
 <form id="ajax-form" method="POST"></form>
-<script id="song"><: if $song { :> var song_read = <: $song | mark_raw :> <: } :></script>
+<script id="song"><% if @song : %> var song_read = <%- @song %> <% end %></script>
 
 <!-- top right -->
 <div id="social" class="clearfix">
@@ -195,10 +193,10 @@
   </div>
 
   <div id="templates">
-    <: include 'synth/synth.tx' :>
-    <: include 'synth/sampler.tx' :>
+    <% include 'synth/synth' %>
+    <% include 'synth/sampler' %>
 
-    <: include 'effect.tx' :>
+    <% include 'effect' %>
 
     <div class="console-track">
       <div class="pan-label">C</div>
@@ -260,6 +258,3 @@
 <i id="btn-right"  class="btn fa fa-angle-right" data-line1="new"  data-line2="synth"></i>
 <i id="btn-top"    class="btn fa fa-angle-up"    data-line1="mixer"></i>
 <i id="btn-bottom" class="btn fa fa-angle-down"  data-line1="synths"></i>
-
-
-: }
