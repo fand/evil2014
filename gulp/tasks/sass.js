@@ -16,8 +16,7 @@ gulp.task('sass', () => {
     .pipe($.if(is_watching, reload({ stream: true })));
 });
 
-
-gulp.task('sass-watch', () => {
-    is_watching = true;
-    return gulp.parallel('sass');
-});
+gulp.task('sass-watch', gulp.series(
+  (done) => { is_watching = true; done(); },
+  'sass'
+));

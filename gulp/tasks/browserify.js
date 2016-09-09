@@ -14,15 +14,6 @@ const notify     = require('../utils/notify');
 let is_dev = true;
 let is_watching = false;
 
-// Call cb after called num times.
-const counter = (num, callback) => {
-  let called = 0;
-  return () => {
-    called += 1;
-    if (called === num) { callback(); }
-  };
-};
-
 // Bundle each config
 const cafe = (c, callback) => {
   const bundler = browserify({
@@ -50,15 +41,14 @@ const cafe = (c, callback) => {
 /**
  * Tasks
  */
-gulp.task('browserify', (cb) => {
+gulp.task('browserify', (done) => {
   if (process.env.NODE_ENV === 'production') {
     is_dev = false
   }
-  const count = counter(config.length, cb);
-  config.forEach(c => cafe(c, count));
+  cafe(config, done);
 });
 
-gulp.task('browserify-watch', () => {
-  is_watching = true;
-  gulp.parallel('browserify');
-});
+gulp.task('browserify-watch', gulp.series(
+  (done) => { is_watching = true; done() },
+  'browserify'
+));
