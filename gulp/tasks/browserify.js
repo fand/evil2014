@@ -24,7 +24,7 @@ const bundler = (entries, isWatching) => {
     const opts = {
         cache        : {},
         packageCache : {},
-        extensions   : ['.coffee'],
+        extensions   : ['.coffee', '.js'],
         transform    : ['coffeeify', 'babelify'],
         paths        : config.paths,
         debug        : env.ENABLE_SOURCEMAPS,
@@ -56,7 +56,7 @@ const setupBundle = (c, isWatching) => {
       .pipe(source(c.dstFile))
       .pipe(buffer())
       .pipe(gulpif(env.ENABLE_SOURCEMAPS, sourcemaps.init({ loadMaps : true })))
-      .pipe(gulpif(env.ENABLE_MINIFY, uglify({ preserveComments : 'license' })))
+      // .pipe(gulpif(env.ENABLE_MINIFY, uglify({ preserveComments : 'license' })))
       .pipe(gulpif(env.ENABLE_SOURCEMAPS, sourcemaps.write()))
       .pipe(gulp.dest(config.dst))
       .pipe(gulpif(isWatching, reload({stream: true})));
