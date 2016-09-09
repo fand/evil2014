@@ -6,9 +6,11 @@ const BASE     = (p) => path.join(BASE_DIR, p);
 
 module.exports = {
   browserify : {
-    src  : [BASE('src/coffee/main.coffee')],
-    dst  : BASE('static/js'),
-    name : 'evil.js',
+      src     : BASE('src/coffee/**/*'),
+      dst     : BASE('static/js'),
+      paths   : ['src'],
+      entries : ['src/coffee/main.coffee'],
+      dstFile : 'evil.js',
   },
   sass : {
     src : BASE('src/scss/**/*.scss'),
