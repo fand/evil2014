@@ -5,9 +5,6 @@
   "author": "fand",
   "bugs": "https://github.com/fand/evil2014/issue",
   "dependencies": {
-    "browser-sync": "^1.5.2",
-    "coffee-script": "^1.9.1",
-    "coffeeify": "^1.0.0",
     "ect": "^0.5.9",
     "ejs": "^2.5.1",
     "express": "^4.14.0",
@@ -20,14 +17,17 @@
   },
   "devDependencies": {
     "babel": "^6.5.2",
+    "browser-sync": "^2.15.0",
     "browserify": "^13.1.0",
+    "coffee-script": "^1.9.1",
+    "coffeeify": "^2.0.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-coffee": "^2.0.1",
     "gulp-if": "^2.0.1",
-    "gulp-load-plugins": "^0.8.0",
+    "gulp-load-plugins": "^1.2.4",
     "gulp-notify": "^2.2.0",
-    "gulp-plumber": "^0.6.3",
+    "gulp-plumber": "^1.1.0",
     "gulp-sass": "^2.3.2",
     "gulp-size": "^2.1.0",
     "gulp-uglify": "^2.0.0",
@@ -51,10 +51,10 @@
     "url": "https://fand@github.com/fand/evil2014.git"
   },
   "scripts": {
-    "start": "node app/index.js",
     "build": "gulp build",
-    "build:js": "gulp browserify",
     "build:css": "gulp sass",
+    "build:js": "gulp browserify",
+    "start": "node app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
