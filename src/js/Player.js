@@ -12,7 +12,7 @@ let TID = null;
 
 class Player {
 
-    constructor () {
+    constructor (context) {
         this.bpm        = 120;
         this.duration   = 500;  // msec
         this.key        = 'A';
@@ -26,7 +26,7 @@ class Player {
         };
 
         this.num_id  = 0;
-        this.context = CONTEXT;
+        this.context = context;
         this.synth   = [];
 
         this.mixer   = new Mixer(this.context, this);
@@ -54,7 +54,7 @@ class Player {
 
     setKey (key) {
         this.key = key;
-        thsi.scene.key = key;
+        this.scene.key = key;
         this.synth.forEach(s => s.setKey(key));
 
         this.sidebar.setKey(key);
@@ -265,7 +265,7 @@ class Player {
             case 'REZ':
                 this.addSynth(0, track.name);
                 break;
-            case 'REZ':
+            case 'SAMPLER':
                 this.addSampler(0, track.name);
                 break;
             default:

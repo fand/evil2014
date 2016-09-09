@@ -24,7 +24,7 @@ const initEvil = () => {
     }, 1500);
 
     window.CONTEXT  = new webkitAudioContext();
-    window.player   = new Player();
+    window.player   = new Player(CONTEXT);
     window.keyboard = new Keyboard(window.player);
     window.midi     = new Midi(window.player);
 
