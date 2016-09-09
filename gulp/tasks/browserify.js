@@ -60,5 +60,5 @@ gulp.task('browserify', (cb) => {
 
 gulp.task('browserify-watch', () => {
   is_watching = true;
-  gulp.start('browserify');
+  gulp.parallel('browserify');
 });

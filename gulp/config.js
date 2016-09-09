@@ -20,4 +20,7 @@ module.exports = {
     client : BASE('src/**/*'),
     sass   : BASE('src/scss/**/*'),
   },
+  pm2 : {
+    script : BASE('app/index.js'),
+  },
 };

@@ -19,5 +19,5 @@ gulp.task('sass', () => {
 
 gulp.task('sass-watch', () => {
     is_watching = true;
-    gulp.start('sass');
+    return gulp.parallel('sass');
 });
