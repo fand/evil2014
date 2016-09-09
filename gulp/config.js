@@ -13,7 +13,7 @@ module.exports = {
   sass : {
     src : BASE('src/scss/**/*.scss'),
     dst : BASE('static/css'),
-  }
+  },
   watch : {
     server : BASE('server/**/*'),
     coffee : BASE('src/coffee/**/*'),

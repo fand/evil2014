@@ -42,7 +42,7 @@ const cafe = (c, callback) => {
     .on('error', (e) => { console.log(e); return notify.error('Compile Error'); })
     .pipe(source(c.name))
     .pipe(gulp.dest(c.dst))
-    .pipe(gulpif(is_watching, reload stream: true));
+    .pipe(gulpif(is_watching, reload({stream: true})));
 
   callback();
 };

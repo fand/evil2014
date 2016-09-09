@@ -1,47 +1,60 @@
 {
   "name": "evil2014",
-  "version": "0.1.0",
   "description": "Web Audio API Synth",
-  "main": "gulpfile.coffee",
-  "scripts": {
-    "start": "node app/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://fand@github.com/fand/evil2013.git"
-  },
+  "version": "0.1.0",
   "author": "fand",
-  "license": "MIT",
+  "bugs": "https://github.com/fand/evil2014/issue",
   "dependencies": {
     "browser-sync": "^1.5.2",
-    "browserify": "^8.1.3",
     "coffee-script": "^1.9.1",
     "coffeeify": "^1.0.0",
     "ect": "^0.5.9",
     "ejs": "^2.5.1",
     "express": "^4.14.0",
-    "gulp": "^3.8.11",
-    "gulp-autoprefixer": "^2.1.0",
-    "gulp-coffee": "^2.0.1",
-    "gulp-if": "^1.2.4",
-    "gulp-load-plugins": "^0.8.0",
-    "gulp-notify": "^2.2.0",
-    "gulp-plumber": "^0.6.3",
-    "gulp-sass": "^1.3.3",
-    "gulp-size": "^1.2.0",
-    "gulp-uglify": "^1.0.1",
-    "gulp-util": "^3.0.1",
     "jquery": "^2.1.3",
     "morgan": "^1.7.0",
     "mysql": "^2.11.1",
-    "node-sass": "^2.0.1",
-    "nodemon": "^1.2.0",
-    "require-directory": "^2.0.0",
     "serve-favicon": "^2.3.0",
     "underscore": "^1.7.0",
-    "vinyl-source-stream": "^1.0.0",
-    "watchify": "^2.2.1",
     "worker-timer": "git://github.com/fand/worker-timer"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "browserify": "^13.1.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-coffee": "^2.0.1",
+    "gulp-if": "^2.0.1",
+    "gulp-load-plugins": "^0.8.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^0.6.3",
+    "gulp-sass": "^2.3.2",
+    "gulp-size": "^2.1.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.1",
+    "node-sass": "^3.9.3",
+    "nodemon": "^1.2.0",
+    "vinyl-source-stream": "^1.0.0",
+    "watchify": "^3.7.0"
+  },
+  "homepage": "http://evil.gmork.in/",
+  "keywords": [
+    "DAW",
+    "Web Audio API",
+    "music",
+    "synthesizer"
+  ],
+  "license": "MIT",
+  "main": "gulpfile.coffee",
+  "repository": {
+    "type": "git",
+    "url": "https://fand@github.com/fand/evil2014.git"
+  },
+  "scripts": {
+    "start": "node app/index.js",
+    "build": "gulp build",
+    "build:js": "gulp browserify",
+    "build:css": "gulp sass",
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

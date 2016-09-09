@@ -1,13 +1,19 @@
-gulp       = require 'gulp'
-requireDir = require 'require-directory'
-requireDir module, './gulp/tasks'
+const gulp = require('gulp');
 
-gulp.task 'dev', ->
-    process.env.NODE_ENV = 'development'
-    gulp.start ['build', 'watch', 'nodemon']
+require('./gulp/tasks/browserify');
+require('./gulp/tasks/browserSync');
+require('./gulp/tasks/build');
+require('./gulp/tasks/nodemon');
+require('./gulp/tasks/sass');
+require('./gulp/tasks/watch');
 
-gulp.task 'pro', ->
-    process.env.NODE_ENV = 'production'
-    gulp.start ['build', 'nodemon']
+gulp.task('dev', () => {
+    process.env.NODE_ENV = 'development';
+    gulp.start(['build', 'watch', 'nodemon']);
+});
+gulp.task('pro', () => {
+    process.env.NODE_ENV = 'production';
+    gulp.start(['build', 'nodemon']);
+});
 
-gulp.task 'default', ['dev']
+gulp.task('default', ['dev']);

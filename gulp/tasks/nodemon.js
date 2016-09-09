@@ -11,6 +11,6 @@ gulp.task('nodemon', () => {
         { env: process.env, stdio: 'inherit' }
     )
     .on('close', () => {
-      console.log 'nodemon: process killed!'
+      console.log('nodemon: process killed!');
     });
 });
