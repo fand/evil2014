@@ -18,6 +18,7 @@ class Panner {
     }
 
     setPosition (pos) {
+        if (!Number.isFinite(pos)) { return; }
         this.pos          = pos;
         this.l.gain.value = pos;
         this.r.gain.value = 1.0 - pos;

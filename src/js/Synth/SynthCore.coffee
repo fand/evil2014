@@ -83,7 +83,8 @@ class SynthCore
         ## Keep total gain <= 0.9
         @gains[i].gain.value = (gain / 100.0) * 0.3
 
-    setGain: (@gain) ->
+    setGain: (gain) ->
+        @gain = gain
         @eg.setRange(0.0, @gain, @ctx.currentTime)
 
     noteOn: (delay) ->

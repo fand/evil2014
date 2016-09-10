@@ -23,7 +23,7 @@ class VCO
         @node = @ctx.createGain()
         @node.gain.value = 1.0
         @osc = @ctx.createOscillator()
-        @osc.type = 0
+        @osc.type = 'sine'
 
         @oscs = [@ctx.createOscillator(), @ctx.createOscillator(), @ctx.createOscillator(), @ctx.createOscillator(),
                  @ctx.createOscillator(), @ctx.createOscillator(), @ctx.createOscillator()]

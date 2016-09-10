@@ -21,7 +21,7 @@ class MixerView {
         this.canvas_tracks_dom = this.tracks.find('.vu-meter');
         this.canvas_tracks     = this.canvas_tracks_dom.map(d => d[0]);
         this.ctx_tracks        = this.canvas_tracks.map(c => c.getContext('2d'));
-        this.canvas_tracks.forEach(c => {
+        this.canvas_tracks.toArray().forEach((c) => {
             [c.width, c.height] = [10, 100];
         });
 
@@ -84,18 +84,18 @@ class MixerView {
     }
 
     setGains () {
-        const g        = this.gains.map(_g => parseFloat(_g.val()) / 100.0);
+        const g        = $.map(this.gains, (_g) => parseFloat($(_g).val()) / 100.0);
         const g_master = parseFloat(this.gain_master.val() / 100.0);
         this.model.setGains(g, g_master);
     }
 
     setPans () {
-        const p        = this.pans.map(_p => 1.0 - parseFloat(_p.val()) / 200.0);
+        const p        = this.pans.map(_p => 1.0 - parseFloat(_p.value) / 200.0);
         const p_master = 1.0 - parseFloat(this.pan_master.val()) / 200.0;
         this.model.setPans(p, p_master);
 
-        this.pans.forEach((p, i) => {
-            const ppp = parseInt(p.val()) - 100;
+        $(this.pans).each((i, p) => {
+            const ppp = parseInt(p.value, 10) - 100;
             const t = (
                 ppp === 0 ? 'C' :
                 ppp <   0 ? `${-ppp}% L` :

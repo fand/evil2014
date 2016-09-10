@@ -121,7 +121,7 @@ class Keyboard {
             break;
         default:
             if (this.mode === 'SYNTH') { this.onPlayer(e); }
-            if (this.mode === 'MIXER') { this.onMiser(e); }
+            if (this.mode === 'MIXER') { this.onMixer(e); }
         }
 
         this.last_key = e.keyCode;

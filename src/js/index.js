@@ -23,20 +23,20 @@ const initEvil = () => {
         });
     }, 1500);
 
-    window.CONTEXT  = new webkitAudioContext();
-    window.player   = new Player(CONTEXT);
+    window.CONTEXT  = new AudioContext();
+    window.player   = new Player(window.CONTEXT);
     window.keyboard = new Keyboard(window.player);
     window.midi     = new Midi(window.player);
 
-    const footerSize = $(window).height()/2 - 300;
-    $('footer').css('height', footerSize + 'px');
+    const footerSize = $(window).height() / 2 - 300;
+    $('footer').css('height', footerSize);
 
     // Read song
     if (window.song_read) {
-        player.readSong(song_read);
+        window.player.readSong(window.song_read);
     }
     else {
-        player.readSong(CONSTANT.SONG_DEFAULT);
+        window.player.readSong(CONSTANT.SONG_DEFAULT);
     }
 };
 
