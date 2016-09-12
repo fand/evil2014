@@ -9,31 +9,31 @@ class SidebarView {
     constructor (model) {
         this.model = model;
 
-        this.wrapper = $('#sidebar-wrapper');
-        this.tracks  = this.wrapper.find('#sidebar-tracks');
-        this.master  = this.wrapper.find('#sidebar-master');
+        this.$wrapper = $('#sidebar-wrapper');
+        this.$tracks  = this.$wrapper.find('#sidebar-tracks');
+        this.$master  = this.$wrapper.find('#sidebar-master');
 
-        this.$masterDisplay  = this.master.find('.display');
-        this.$masterControl  = this.master.find('.control');
+        this.$masterDisplay  = this.$master.find('.display');
+        this.$masterControl  = this.$master.find('.control');
 
-        this.$masterDisplayLabel  = this.master.find('.display-current-control');
-        this.$masterEdit  = this.master.find('[name=edit]');
+        this.$masterDisplayLabel  = this.$master.find('.display-current-control');
+        this.$masterEdit  = this.$master.find('[name=edit]');
 
-        this.$masterName  = this.master.find('[name=name]');
-        this.$masterBpm   = this.master.find('[name=bpm]');
-        this.$masterKey   = this.master.find('[name=key]');
-        this.$masterScale = this.master.find('[name=mode]');
-        this.$masterSave  = this.master.find('[name=save]');
+        this.$masterName  = this.$master.find('[name=name]');
+        this.$masterBpm   = this.$master.find('[name=bpm]');
+        this.$masterKey   = this.$master.find('[name=key]');
+        this.$masterScale = this.$master.find('[name=mode]');
+        this.$masterSave  = this.$master.find('[name=save]');
 
-        this.$masterEffects = this.master.find('.sidebar-effects');
-        this.$addMaster     = this.master.find('.add-type');
-        this.$addMasterBtn  = this.master.find('.add-btn');
-        this.$tracksEffects = this.tracks.find('.sidebar-effects');
-        this.$addTracks     = this.tracks.find('.add-type');
-        this.$addTracksBtn  = this.tracks.find('.add-btn');
+        this.$masterEffects = this.$master.find('.sidebar-effects');
+        this.$addMaster     = this.$master.find('.add-type');
+        this.$addMasterBtn  = this.$master.find('.add-btn');
+        this.$tracksEffects = this.$tracks.find('.sidebar-effects');
+        this.$addTracks     = this.$tracks.find('.add-type');
+        this.$addTracksBtn  = this.$tracks.find('.add-btn');
 
-        this.$patternIsOn      = this.tracks.find('.is-on');
-        this.$patternIsOnLabel = this.tracks.find('.is-on-label');
+        this.$patternIsOn      = this.$tracks.find('.is-on');
+        this.$patternIsOnLabel = this.$tracks.find('.is-on-label');
 
         this.initEvent();
     }
@@ -55,7 +55,7 @@ class SidebarView {
         });
         this.$masterEdit.on('click', () => this.showMasterControl());
 
-        this.tracks.find('.sidebar-effect').each((i) => {
+        this.$tracks.find('.sidebar-effect').each((i) => {
             $(this).on('change', () => {
                 // change i-th effect
                 this.model.readTracksEffect(i);
@@ -107,7 +107,7 @@ class SidebarView {
         this.setPatternOnOff(isOn);
         this.$tracksEffects.find('.sidebar-effect').remove();
         track.effects.forEach(f => f.appentTo(this.$tracksEffects));
-        this.wrapper.css('left', '0px');
+        this.$wrapper.css('left', '0px');
     }
 
     showMaster (o) {
@@ -124,7 +124,7 @@ class SidebarView {
         }
         this.$masterDisplayLabel.text(s);
 
-        this.wrapper.css('left', '-223px');
+        this.$wrapper.css('left', '-223px');
     }
 
     showMasterControl () {
