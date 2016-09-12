@@ -70,7 +70,7 @@ class Sidebar {
     // viewから呼ばれる
     saveMaster (obj) {
         if (this.pos.y === -1) { return; }
-        this.session.saveMaster(this.pos.y, obj)
+        this.session.saveMaster(this.pos.y, obj);
     }
 
     // viewから呼ばれる
@@ -80,12 +80,20 @@ class Sidebar {
         this.session.saveTracksEffect(this.pos);
     }
 
-    // viewから呼ばれる
+    /**
+     * Called by SidebarView.
+     * @param {string} name
+     * @returns {FX}
+     */
     addMasterEffect (name) {
         return this.mixer.addMasterEffect(name);
     }
 
-    // viewから呼ばれる
+    /**
+     * Called by SidebarView.
+     * @param {string} name
+     * @returns {FX}
+     */
     addTracksEffect (name) {
         return this.mixer.addTracksEffect(this.pos.x, name);
     }
