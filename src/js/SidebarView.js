@@ -1,4 +1,7 @@
 const $ = require('jquery');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const EffectList = require('./EffectList');
 
 class SidebarView {
 
@@ -26,9 +29,12 @@ class SidebarView {
         this.$masterSave  = this.$master.find('[name=save]');
 
         this.$masterEffects = this.$master.find('.sidebar-effects');
+        this.$tracksEffects = this.$tracks.find('.sidebar-effects');
+        this.masterEffectList = ReactDOM.render(<EffectList/>, this.$masterEffects[0]);
+        this.tracksEffectList = ReactDOM.render(<EffectList/>, this.$tracksEffects[0]);
+
         this.$addMaster     = this.$master.find('.add-type');
         this.$addMasterBtn  = this.$master.find('.add-btn');
-        this.$tracksEffects = this.$tracks.find('.sidebar-effects');
         this.$addTracks     = this.$tracks.find('.add-type');
         this.$addTracksBtn  = this.$tracks.find('.add-btn');
 
@@ -176,19 +182,11 @@ class SidebarView {
     }
 
     renderEffects () {
-        // Render master effects.
-        this.$masterEffects.empty();
         const masterEffects = this.model.getMasterEffects();
-        masterEffects.forEach((fx) => {
-            fx.appendTo(this.$masterEffects);
-        });
+        this.masterEffectList.setState({ effects: masterEffects });
 
-        // Render tracks effects.
-        this.$tracksEffects.empty();
         const tracksEffects = this.model.getTracksEffects();
-        tracksEffects.forEach((fx) => {
-            fx.appendTo(this.$tracksEffects);
-        });
+        this.tracksEffectList.setState({ effects: tracksEffects });
     }
 
 }

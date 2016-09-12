@@ -38,15 +38,6 @@ class FX {
         this.wet.gain.value = d;
     }
 
-    /**
-     * Called by SidebarView.
-     * @param {HTMLElement} dst
-     */
-    appendTo (dst) {
-        $(dst).append(this.view.dom);
-        this.view.initEvent();
-    }
-
     remove () {
         this.source.removeEffect(this);
     }
