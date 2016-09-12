@@ -1,0 +1,248 @@
+/* Sequencer Header */
+.header {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 910px;
+    height: 35px;
+    border-bottom: 1px solid #0df;
+    border-radius: 3px;
+}
+.synth-type {
+    position: absolute;
+    top: 0px;
+    left: 12px;
+    width: 70px;
+    height: 16px;
+    margin: 10px 5px;
+    font-size: 10px;
+    color: #0df;
+}
+.names {
+    position: absolute;
+    color: #0df;
+    font-size: 12px;
+    top: 0px;
+    left: 100px;
+    white-space: nowrap;
+}
+.names * {
+    float: left;
+    font-size: 12px;
+    height: 16px;
+    margin: 9px 0px;  /* total < 36px */
+    padding: 0px;
+    border: none;
+    background: none;
+    outline: none;
+    color: #0df;
+    text-shadow: 0 0 1px #cde;
+    text-align: center;
+}
+.names > span {
+    font-size: 9px;
+    height: 12px;
+    margin: 13px 10px 0px 10px;
+}
+.names > span:after {
+    display: none;
+}
+.synth-name {
+    max-width: 60px;
+}
+.synth-name:hover {
+    text-shadow: 0px 0px 10px #9ef;
+}
+.synth-name:focus {
+    text-shadow: none;
+}
+.pattern-name{
+    max-width: 60px;
+}
+.pattern-name:hover {
+    text-shadow: 0px 0px 10px #9ef;
+}
+.pattern-name:focus {
+    text-shadow: none;
+}
+
+.sequencer-mode {
+    position: absolute;
+    color: #0df;
+    font-size: 12px;
+    top: 0px;
+    left: 310px;
+    width: 120px;
+    height: 36px;
+}
+.sequencer-mode > * {
+    float: left;
+}
+.sequencer-mode > span {
+    font-size: 12px;
+    height: 16px;
+    margin: 12px 0px;
+    margin-right: 12px;
+}
+.sequencer-mode > i {
+    font-size: 16px;
+    height: 16px;
+    margin: 10px 6px;
+}
+
+.markers {
+    position: absolute;
+    top: 0px;
+    left: 480px;
+    width: 400px;
+    height: 36px;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+.markers *{
+    float: left;
+    width: 10px;
+    height: 12px;
+    font-size: 12px;
+    text-align: center;
+    margin: 0px;
+    padding: 12px 6px;
+    color: #8df;
+}
+.marker {
+    color: #fafafa;
+}
+.marker-active {
+    color: #8df;
+}
+.marker-active:hover {
+    cursor: pointer;
+    text-shadow: 0px 0px 4px #088;
+}
+.marker-now {
+    color: #fff;
+    text-shadow: 0px 0px 5px #0df;
+}
+.marker-now:hover {
+    cursor: default;
+    text-shadow: 0px 0px 10px #0df;
+}
+.marker-prev, .marker-next {
+    padding: 12px;
+}
+.marker-prev:hover, .marker-next:hover {
+    text-shadow: 0px 0px 5px #0df;
+}
+.marker-pos {
+    margin-left: 15px;
+}
+.marker-pos, .marker-divide, .marker-total {
+    padding: 12px 0px;
+    width: 20px;
+}
+
+.header .btn {
+    width: 16px;
+    margin: 10px;
+    padding: 2px;
+    font-size: 12px;
+}
+.btn-false {
+    color: #eee;
+}
+.btn-false:hover {
+    cursor: pointer;
+    color: #fff;
+    text-shadow: 0px 0px 5px #0df;
+}
+.btn-true {
+    color: #8df;
+}
+
+.pattern-nosync {
+    position: absolute;
+    width: 16px;
+    margin: 10px;
+    padding: 2px;
+    top: 0px;
+    right: 0px;
+    font-size: 12px;
+}
+.pattern-plus {
+    position: absolute;
+    top: 0px;
+    right: 30px;
+}
+.pattern-plus:hover {
+    color: #fff;
+    text-shadow: 0px 0px 10px #0df;
+}
+.pattern-minus {
+    position: absolute;
+    top: 0px;
+    right: 60px;
+}
+.pattern-minus:hover {
+    color: #fff;
+    text-shadow: 0px 0px 10px #0df;
+}
+
+
+
+/* Sequencer */
+
+.sequencer-table {
+    position: absolute;
+    margin: 0px 7px;
+    padding: 0px;
+    top: 45px;
+    left: 0px;
+    width: 896px;
+    height: 262px;
+    /* height: 524px; */
+    overflow-y: scroll;
+
+    transition: all 0.2s ease 0s;
+}
+.table {
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+    top: 0px;
+    left: 50px;
+    overflow-y: hidden;
+}
+.table-hover {
+    z-index: 100;
+}
+.table-on {
+    z-index: 10;
+}
+.table-off {
+    z-index: 1;
+}
+.keyboard {
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+    top: 2px;
+    left: 0px;
+}
+.btn-fold-core {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 5px;
+    min-width: 20px;
+    min-height: 20px;
+    font-size: 20px;
+    text-align: center;
+    z-index: 10;
+    color: #0df;
+    background-color: #fff;
+}
+.btn-fold-core:hover {
+    color: #fff;
+    text-shadow: 0px 0px 5px #0ae;
+}
