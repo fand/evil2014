@@ -177,16 +177,14 @@ class SidebarView {
 
     renderEffects () {
         // Render master effects.
-        // this.$masterEffects.empty();
-        this.$masterEffects.find('.sidebar-effect').remove();
+        this.$masterEffects.empty();
         const masterEffects = this.model.getMasterEffects();
         masterEffects.forEach((fx) => {
             fx.appendTo(this.$masterEffects);
         });
 
         // Render tracks effects.
-        // this.$tracksEffects.empty();
-        this.$tracksEffects.find('.sidebar-effect').remove();
+        this.$tracksEffects.empty();
         const tracksEffects = this.model.getTracksEffects();
         tracksEffects.forEach((fx) => {
             fx.appendTo(this.$tracksEffects);
