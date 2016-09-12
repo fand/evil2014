@@ -232,6 +232,22 @@ class Mixer {
         this.effects_master.splice(i, 1);
     }
 
+    /**
+     * Called by Sidebar.
+     * @returns {FX[]}
+     */
+    getMasterEffects () {
+        return this.effects_master;
+    }
+    /**
+     * Called by Sidebar.
+     * @param {number} x - synth num
+     * @returns {FX[]} fx
+     */
+    getTracksEffects (x) {
+        return this.player.synth[x].effects;
+    }
+
 }
 
 module.exports = Mixer;

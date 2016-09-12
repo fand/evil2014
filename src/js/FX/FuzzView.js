@@ -19,7 +19,7 @@ class FuzzView extends FXView {
     }
 
     initEvent () {
-        super.initEvnet();
+        super.initEvent();
         this.input.on('change input', () =>
             this.model.setParam({input: parseFloat(this.input.val()) / 100.0})
         )

@@ -105,8 +105,9 @@ class SidebarView {
         const isOn = (pattern.isOn != null ? pattern.isOn : true);
         this.$patternIsOn.prop('checked', isOn);
         this.setPatternOnOff(isOn);
-        this.$tracksEffects.find('.sidebar-effect').remove();
-        track.effects.forEach(f => f.appentTo(this.$tracksEffects));
+        // this.$tracksEffects.find('.sidebar-effect').remove();
+        // track.effects.forEach(f => f.appentTo(this.$tracksEffects));
+        this.renderEffects();
         this.$wrapper.css('left', '0px');
     }
 
@@ -139,12 +140,14 @@ class SidebarView {
 
     addMasterEffect (name) {
         const fx = this.model.addMasterEffect(name);
-        fx.appendTo(this.$masterEffects);
+        // fx.appendTo(this.$masterEffects);
+        this.renderEffects();
     }
 
     addTracksEffect (name) {
         const fx = this.model.addTracksEffect(name);
-        fx.appendTo(this.$tracksEffects);
+        // fx.appendTo(this.$tracksEffects);
+        this.renderEffects();
     }
 
     setBPM (b) {
@@ -160,7 +163,8 @@ class SidebarView {
     }
 
     readMasterEffect (fx) {
-        fx.appendTo(this.$masterEffects);
+        // fx.appendTo(this.$masterEffects);
+        this.renderEffects();
     }
 
     /**
@@ -169,6 +173,24 @@ class SidebarView {
     setPatternOnOff (val) {
         this.$patternIsOnLabel.html('Default: ' + (val ? 'On' : 'Off'));
         this.model.setPatternOnOff(val);
+    }
+
+    renderEffects () {
+        // Render master effects.
+        // this.$masterEffects.empty();
+        this.$masterEffects.find('.sidebar-effect').remove();
+        const masterEffects = this.model.getMasterEffects();
+        masterEffects.forEach((fx) => {
+            fx.appendTo(this.$masterEffects);
+        });
+
+        // Render tracks effects.
+        // this.$tracksEffects.empty();
+        this.$tracksEffects.find('.sidebar-effect').remove();
+        const tracksEffects = this.model.getTracksEffects();
+        tracksEffects.forEach((fx) => {
+            fx.appendTo(this.$tracksEffects);
+        });
     }
 
 }
