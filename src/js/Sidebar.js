@@ -2,6 +2,13 @@ const SidebarView = require('./SidebarView');
 
 class Sidebar {
 
+    /**
+     * @param {AudioContext} ctx
+     * @param {Player} player
+     * @param {Session} sessioin
+     * @param {AudioContext} mixer
+     * Called by Player.prototype.constructor.
+     */
     constructor (ctx, player, session, mixer) {
         this.ctx     = ctx;
         this.player  = player;
@@ -14,6 +21,7 @@ class Sidebar {
 
     /**
      * Show info for selected cell.
+     * Called by SessionView.
      * @param {Object} song
      * @param {Pos} pos
      */
@@ -39,22 +47,22 @@ class Sidebar {
         }
     }
 
-    addTracksEffect (name) {
-        this.mixer.addTracksEffect(this.pos.x, name);
-    }
-
+    // Playerから呼ばれる
     setBPM (b) {
         this.view.setBPM(b);
     }
 
+    // Playerから呼ばれる
     setKey (k) {
         this.view.setKey(k);
     }
 
+    // Playerから呼ばれる
     setScale (s) {
         this.view.setScale(s);
     }
 
+    // Playerから呼ばれる
     update () {
         this.mixer.effects_master.forEach(f => this.view.readMasterEffect(f));
     }
@@ -74,7 +82,12 @@ class Sidebar {
 
     // viewから呼ばれる
     addMasterEffect (name) {
-        this.mixer.addMasterEffect(name);
+        return this.mixer.addMasterEffect(name);
+    }
+
+    // viewから呼ばれる
+    addTracksEffect (name) {
+        return this.mixer.addTracksEffect(this.pos.x, name);
     }
 
     // viewから呼ばれる

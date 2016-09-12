@@ -2,6 +2,10 @@ const $ = require('jquery');
 
 class SidebarView {
 
+    /**
+     * @param {Sidebar} model
+     * Called by Sidebar.prototype.constructor.
+     */
     constructor (model) {
         this.model = model;
 
@@ -9,44 +13,47 @@ class SidebarView {
         this.tracks  = this.wrapper.find('#sidebar-tracks');
         this.master  = this.wrapper.find('#sidebar-master');
 
-        this.master_display  = this.master.find('.display');
-        this.master_control  = this.master.find('.control');
+        this.$masterDisplay  = this.master.find('.display');
+        this.$masterControl  = this.master.find('.control');
 
-        this.master_display_label  = this.master.find('.display-current-control');
-        this.master_edit  = this.master.find('[name=edit]');
+        this.$masterDisplayLabel  = this.master.find('.display-current-control');
+        this.$masterEdit  = this.master.find('[name=edit]');
 
-        this.master_name  = this.master.find('[name=name]');
-        this.master_bpm   = this.master.find('[name=bpm]');
-        this.master_key   = this.master.find('[name=key]');
-        this.master_scale = this.master.find('[name=mode]');
-        this.master_save  = this.master.find('[name=save]');
+        this.$masterName  = this.master.find('[name=name]');
+        this.$masterBpm   = this.master.find('[name=bpm]');
+        this.$masterKey   = this.master.find('[name=key]');
+        this.$masterScale = this.master.find('[name=mode]');
+        this.$masterSave  = this.master.find('[name=save]');
 
-        this.master_effects = this.master.find('.sidebar-effects');
-        this.add_master     = this.master.find('.add-type');
-        this.add_master_btn = this.master.find('.add-btn');
-        this.tracks_effects = this.tracks.find('.sidebar-effects');
-        this.add_tracks     = this.tracks.find('.add-type');
-        this.add_tracks_btn = this.tracks.find('.add-btn');
+        this.$masterEffects = this.master.find('.sidebar-effects');
+        this.$addMaster     = this.master.find('.add-type');
+        this.$addMasterBtn  = this.master.find('.add-btn');
+        this.$tracksEffects = this.tracks.find('.sidebar-effects');
+        this.$addTracks     = this.tracks.find('.add-type');
+        this.$addTracksBtn  = this.tracks.find('.add-btn');
 
-        this.pattern_is_on       = this.tracks.find('.is-on');
-        this.pattern_is_on_label = this.tracks.find('.is-on-label');
+        this.$patternIsOn      = this.tracks.find('.is-on');
+        this.$patternIsOnLabel = this.tracks.find('.is-on-label');
 
         this.initEvent();
     }
 
     initEvent () {
-        this.master_name
+        this.$masterName
             .on('focus', () => window.keyboard.beginInput())
             .on('blur', () => window.keyboard.endInput())
             .on('change', () => this.saveMaster());
 
-        [this.master_bpm, this.master_key, this.master_scale].forEach(m => {
+        [this.$masterBpm, this.$masterKey, this.$masterScale].forEach(m => {
             m.on('focus', () => window.keyboard.beginInput())
                 .on('blur', () => window.keyboard.endInput());
         });
 
-        this.master_save.on('click', () => { this.saveMaster(); this.hideMasterControl(); });
-        this.master_edit.on('click', () => this.showMasterControl());
+        this.$masterSave.on('click', () => {
+            this.saveMaster();
+            this.hideMasterControl();
+        });
+        this.$masterEdit.on('click', () => this.showMasterControl());
 
         this.tracks.find('.sidebar-effect').each((i) => {
             $(this).on('change', () => {
@@ -55,24 +62,24 @@ class SidebarView {
             });
         });
 
-        this.add_master_btn.on('click', () =>
-            this.addMasterEffect(this.add_master.val())
+        this.$addMasterBtn.on('click', () =>
+            this.addMasterEffect(this.$addMaster.val())
         );
 
-        this.add_tracks_btn.on('click', () =>
-            this.addTracksEffect(this.add_tracks.val())
+        this.$addTracksBtn.on('click', () =>
+            this.addTracksEffect(this.$addTracks.val())
         );
 
-        this.pattern_is_on.on('change', () => {
-            this.setPatternOnOff(this.pattern_is_on.prop('checked'));
+        this.$patternIsOn.on('change', () => {
+            this.setPatternOnOff(this.$patternIsOn.prop('checked'));
         });
     }
 
     saveMaster () {
-        const name  = this.master_name.val();
-        const bpm   = this.master_bpm.val();
-        const key   = this.master_key.val();
-        const scale = this.master_scale.val();
+        const name  = this.$masterName.val();
+        const bpm   = this.$masterBpm.val();
+        const key   = this.$masterKey.val();
+        const scale = this.$masterScale.val();
 
         const obj = {};
         if (name != null) { obj.name  = name; }
@@ -84,29 +91,29 @@ class SidebarView {
     }
 
     clearMaster () {
-        const o = {name: this.master_name.val()};
+        const o = { name: this.$masterName.val() };
         this.model.saveMaster(o);
         this.showMaster(o);
     }
 
     saveTracksEffect () {
         // save してない……？
-        this.tracks_effects.forEach(f => f.getParam());
+        this.$tracksEffects.forEach(f => f.getParam());
     }
 
     showTracks (track, pattern) {
-        const is_on = (pattern.isOn != null ? pattern.isOn : true);
-        this.pattern_is_on.prop('checked', is_on);
-        this.setPatternOnOff(is_on);
-        this.tracks_effects.find('.sidebar-effect').remove();
-        track.effects.forEach(f => f.appentTo(this.tracks_effects));
+        const isOn = (pattern.isOn != null ? pattern.isOn : true);
+        this.$patternIsOn.prop('checked', isOn);
+        this.setPatternOnOff(isOn);
+        this.$tracksEffects.find('.sidebar-effect').remove();
+        track.effects.forEach(f => f.appentTo(this.$tracksEffects));
         this.wrapper.css('left', '0px');
     }
 
     showMaster (o) {
         this.hideMasterControl();
         if (o.name) {
-            this.master_name.val(o.name);
+            this.$masterName.val(o.name);
         }
 
         let s = '';
@@ -115,49 +122,52 @@ class SidebarView {
         if (o.scale != null) {
             s += o.scale;
         }
-        this.master_display_label.text(s);
+        this.$masterDisplayLabel.text(s);
 
         this.wrapper.css('left', '-223px');
     }
 
     showMasterControl () {
-        this.master_control.show();
-        this.master_display.hide();
+        this.$masterControl.show();
+        this.$masterDisplay.hide();
     }
 
     hideMasterControl () {
-        this.master_display.show();
-        this.master_control.hide();
+        this.$masterDisplay.show();
+        this.$masterControl.hide();
     }
 
     addMasterEffect (name) {
         const fx = this.model.addMasterEffect(name);
-        fx.appendTo(this.master_effects);
+        fx.appendTo(this.$masterEffects);
     }
 
     addTracksEffect (name) {
         const fx = this.model.addTracksEffect(name);
-        fx.appendTo(this.tracks_effects);
+        fx.appendTo(this.$tracksEffects);
     }
 
     setBPM (b) {
-        this.master_bpm.val(b);
+        this.$masterBpm.val(b);
     }
 
     setKey (k) {
-        this.master_key.val(k);
+        this.$masterKey.val(k);
     }
 
     setScale (s) {
-        this.master_scale.val(s);
+        this.$masterScale.val(s);
     }
 
     readMasterEffect (fx) {
-        fx.appendTo(this.master_effects);
+        fx.appendTo(this.$masterEffects);
     }
 
+    /**
+     * @param {boolean} val
+     */
     setPatternOnOff (val) {
-        this.pattern_is_on_label.html('Default: ' + (val ? 'On' : 'Off'));
+        this.$patternIsOnLabel.html('Default: ' + (val ? 'On' : 'Off'));
         this.model.setPatternOnOff(val);
     }
 
