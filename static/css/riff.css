@@ -693,22 +693,10 @@ canvas:active {
   min-height: 100%; }
 
 .sidebar-effects {
-  min-height: 449px; }
-
-.sidebar-module {
-  position: relative;
-  width: 207px;
-  /* (223 - 10 - 4 - 2). total size including scrollbar is 223.*/
-  margin: 0px;
-  padding: 0px;
-  border: 1px solid #0df;
-  border-radius: 3px; }
-
-#sidebar-tracks > .sidebar-effects > .sidebar-module:first-child {
-  margin-top: -9px; }
-
-#sidebar-master > .sidebar-effects > .sidebar-module:first-child {
-  margin-top: -9px; }
+  top: 0px;
+  bottom: 0px; }
+  .sidebar-effects .sidebar-module:first-child {
+    margin-top: -9px; }
 
 .sidebar-name > legend {
   font-size: 12px;
@@ -729,36 +717,41 @@ canvas:active {
 .sidebar-name > legend > input:hover {
   text-shadow: 0px 0px 10px #9ef; }
 
-.sidebar-module > div {
-  width: 100%;
-  height: 36px; }
-
-.sidebar-module label {
-  float: left;
-  width: 50px;
-  height: 20px;
-  font-size: 12px;
-  text-align: right;
-  margin: 0px 10px;
-  border: none; }
-
-.sidebar-module input {
-  float: left;
-  width: 120px;
-  right: 0px;
-  font-size: 10px;
-  text-align: center;
-  margin: 0px 5px;
-  margin-top: 4px; }
-
-.sidebar-module select {
-  float: left;
-  width: 100px;
-  font-size: 10px;
-  text-align: center;
-  margin: 0px 10px;
-  margin-top: 4px;
-  margin-left: 25px; }
+.sidebar-module {
+  position: relative;
+  width: 207px;
+  /* (223 - 10 - 4 - 2). total size including scrollbar is 223.*/
+  margin: 0px;
+  padding: 0px;
+  border: 1px solid #0df;
+  border-radius: 3px; }
+  .sidebar-module > div {
+    width: 100%;
+    height: 36px; }
+  .sidebar-module label {
+    float: left;
+    width: 50px;
+    height: 20px;
+    font-size: 12px;
+    text-align: right;
+    margin: 0px 10px;
+    border: none; }
+  .sidebar-module input {
+    float: left;
+    width: 120px;
+    right: 0px;
+    font-size: 10px;
+    text-align: center;
+    margin: 0px 5px;
+    margin-top: 4px; }
+  .sidebar-module select {
+    float: left;
+    width: 100px;
+    font-size: 10px;
+    text-align: center;
+    margin: 0px 10px;
+    margin-top: 4px;
+    margin-left: 25px; }
 
 .sidebar-effect-minus {
   display: block;
@@ -778,11 +771,6 @@ canvas:active {
   color: #fff;
   text-shadow: 0px 0px 5px #0df; }
 
-#sidebar-master-control > .control {
-  display: none;
-  margin: 5px 0px;
-  height: 26px; }
-
 #sidebar-master-control label {
   font-size: 12px;
   float: left;
@@ -790,21 +778,24 @@ canvas:active {
   padding-right: 5px;
   text-align: right; }
 
-#sidebar-master-control > .control > select {
-  float: right;
-  width: 70px;
-  font-size: 10px;
-  text-align: left;
-  margin-top: 4px;
-  margin-right: 12px; }
-
-#sidebar-master-control > .control > input {
-  float: right;
-  width: 65px;
-  font-size: 10px;
-  text-align: center;
-  margin-top: 4px;
-  margin-right: 12px; }
+#sidebar-master-control > .control {
+  display: none;
+  margin: 5px 0px;
+  height: 26px; }
+  #sidebar-master-control > .control select {
+    float: right;
+    width: 70px;
+    font-size: 10px;
+    text-align: left;
+    margin-top: 4px;
+    margin-right: 12px; }
+  #sidebar-master-control > .control input {
+    float: right;
+    width: 65px;
+    font-size: 10px;
+    text-align: center;
+    margin-top: 4px;
+    margin-right: 12px; }
 
 #sidebar-master-control .display-current-control {
   float: left;
@@ -812,7 +803,7 @@ canvas:active {
   margin-left: 10px;
   font-size: 11px; }
 
-#sidebar-master-control > .display > input {
+#sidebar-master-control > .display {
   float: right;
   width: 45px;
   font-size: 10px;
@@ -824,16 +815,14 @@ canvas:active {
   margin-top: 10px;
   margin-bottom: 0px;
   height: 30px; }
-
-.sidebar-add-effect select {
-  float: left;
-  width: 100px;
-  margin-top: 6px; }
-
-.sidebar-add-effect input {
-  float: left;
-  width: 40px;
-  margin-top: 5px; }
+  .sidebar-add-effect select {
+    float: left;
+    width: 100px;
+    margin-top: 6px; }
+  .sidebar-add-effect input {
+    float: left;
+    width: 40px;
+    margin-top: 5px; }
 
 #sidebar-tracks .is-on {
   display: inline-block;
