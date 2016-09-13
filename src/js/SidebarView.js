@@ -3,6 +3,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const EffectList = require('./EffectList');
 const SidebarFooter = require('./SidebarFooter');
+const SidebarTracksHeader = require('./SidebarTracksHeader');
 
 class SidebarView {
 
@@ -41,8 +42,12 @@ class SidebarView {
         this.tracksFooter  = ReactDOM.render(
           <SidebarFooter onAdd={v => this.addTracksEffect(v)}/>, this.$tracksFooter[0]);
 
-        this.$patternIsOn      = this.$tracks.find('.is-on');
-        this.$patternIsOnLabel = this.$tracks.find('.is-on-label');
+
+        this.$tracksHeader = this.$tracks.find('.sidebar-header');
+        this.tracksHeader  = ReactDOM.render(
+          <SidebarTracksHeader
+            onToggleOnOff={v => this.setPatternOnOff(v)}
+            onChangeTrackName={n => console.log('change track name')}/>, this.$tracksHeader[0]);  // TODO: change track name
 
         this.initEvent();
     }
@@ -63,17 +68,6 @@ class SidebarView {
             this.hideMasterControl();
         });
         this.$masterEdit.on('click', () => this.showMasterControl());
-
-        this.$tracks.find('.sidebar-effect').each((i) => {
-            $(this).on('change', () => {
-                // change i-th effect
-                this.model.readTracksEffect(i);
-            });
-        });
-
-        this.$patternIsOn.on('change', () => {
-            this.setPatternOnOff(this.$patternIsOn.prop('checked'));
-        });
     }
 
     saveMaster () {
@@ -103,11 +97,7 @@ class SidebarView {
     }
 
     showTracks (track, pattern) {
-        const isOn = (pattern.isOn != null ? pattern.isOn : true);
-        this.$patternIsOn.prop('checked', isOn);
-        this.setPatternOnOff(isOn);
-        // this.$tracksEffects.find('.sidebar-effect').remove();
-        // track.effects.forEach(f => f.appentTo(this.$tracksEffects));
+        this.renderTracksHeader(track, pattern);
         this.renderEffects();
         this.$wrapper.css('left', '0px');
     }
@@ -165,8 +155,11 @@ class SidebarView {
      * @param {boolean} val
      */
     setPatternOnOff (val) {
-        this.$patternIsOnLabel.html('Default: ' + (val ? 'On' : 'Off'));
         this.model.setPatternOnOff(val);
+    }
+
+    renderTracksHeader (track, pattern) {
+        this.tracksHeader.setState({ track, pattern });
     }
 
     renderEffects () {

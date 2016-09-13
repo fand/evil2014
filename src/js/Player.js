@@ -285,7 +285,7 @@ class Player {
         this.session.setSynth(this.synth);
         this.session.readSong(this.song);
         this.mixer.readParam(this.song.mixer);
-        this.sidebar.renderEffects();
+        this.sidebar.render();
 
         this.view.setSynthNum(this.synth.length, this.synth_pos);
         this.resetSceneLength()
