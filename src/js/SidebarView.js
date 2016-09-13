@@ -60,6 +60,7 @@ class SidebarView {
 
     showMaster (o) {
         this.renderMasterHeader(o);
+        this.$wrapper.css('left', '-223px');
     }
 
     addMasterEffect (name) {
@@ -70,18 +71,6 @@ class SidebarView {
     addTracksEffect (name) {
         const fx = this.model.addTracksEffect(name);
         this.renderEffects();
-    }
-
-    setBPM (b) {
-        this.$masterBpm.val(b);
-    }
-
-    setKey (k) {
-        this.$masterKey.val(k);
-    }
-
-    setScale (s) {
-        this.$masterScale.val(s);
     }
 
     /**

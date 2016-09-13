@@ -53,21 +53,6 @@ class Sidebar {
     }
 
     // Playerから呼ばれる
-    setBPM (b) {
-        this.view.setBPM(b);
-    }
-
-    // Playerから呼ばれる
-    setKey (k) {
-        this.view.setKey(k);
-    }
-
-    // Playerから呼ばれる
-    setScale (s) {
-        this.view.setScale(s);
-    }
-
-    // Playerから呼ばれる
     render () {
         this.view.renderEffects();
     }

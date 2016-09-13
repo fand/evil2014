@@ -74,6 +74,15 @@ class SidebarMasterHeader extends React.Component {
     this.setState({ scene : newScene });
   }
 
+  onChangeSceneName (e) {
+    const newScene = {
+      ...this.state.scene,
+      name : e.target.value,
+    };
+    this.setState({ scene : newScene });
+    this.props.onChangeScene(newScene);
+  }
+
   renderDisplay () {
     return (
       <div className="display clearfix">
@@ -116,8 +125,10 @@ class SidebarMasterHeader extends React.Component {
         </div>
 
         <div className="control clearfix">
-          <input name="save" type="button" value="save"
-            onClick={() => this.saveEditor()}/>
+          <button name="save" type="button"
+            onClick={() => this.saveEditor()}>
+            save
+          </button>
         </div>
       </div>
     );
@@ -126,7 +137,11 @@ class SidebarMasterHeader extends React.Component {
   render () {
     return (
       <fieldset className="sidebar-module sidebar-name">
-        <legend><input name="name" type="text" value="section-0" /></legend>
+        <legend>
+          <input name="name" type="text"
+            value={this.state.scene ? this.state.scene.name : ''}
+            onChange={(e) => this.onChangeSceneName(e)}/>
+        </legend>
         {this.state.isEditing ? this.renderControl() : this.renderDisplay()}
       </fieldset>
     );
