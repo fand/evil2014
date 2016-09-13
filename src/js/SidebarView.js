@@ -2,6 +2,7 @@ const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const EffectList = require('./EffectList');
+const SidebarFooter = require('./SidebarFooter');
 
 class SidebarView {
 
@@ -33,10 +34,12 @@ class SidebarView {
         this.masterEffectList = ReactDOM.render(<EffectList/>, this.$masterEffects[0]);
         this.tracksEffectList = ReactDOM.render(<EffectList/>, this.$tracksEffects[0]);
 
-        this.$addMaster     = this.$master.find('.add-type');
-        this.$addMasterBtn  = this.$master.find('.add-btn');
-        this.$addTracks     = this.$tracks.find('.add-type');
-        this.$addTracksBtn  = this.$tracks.find('.add-btn');
+        this.$masterFooter = this.$master.find('.sidebar-footer');
+        this.$tracksFooter = this.$tracks.find('.sidebar-footer');
+        this.masterFooter  = ReactDOM.render(
+          <SidebarFooter onAdd={v => this.addMasterEffect(v)}/>, this.$masterFooter[0]);
+        this.tracksFooter  = ReactDOM.render(
+          <SidebarFooter onAdd={v => this.addTracksEffect(v)}/>, this.$tracksFooter[0]);
 
         this.$patternIsOn      = this.$tracks.find('.is-on');
         this.$patternIsOnLabel = this.$tracks.find('.is-on-label');
@@ -67,14 +70,6 @@ class SidebarView {
                 this.model.readTracksEffect(i);
             });
         });
-
-        this.$addMasterBtn.on('click', () =>
-            this.addMasterEffect(this.$addMaster.val())
-        );
-
-        this.$addTracksBtn.on('click', () =>
-            this.addTracksEffect(this.$addTracks.val())
-        );
 
         this.$patternIsOn.on('change', () => {
             this.setPatternOnOff(this.$patternIsOn.prop('checked'));
