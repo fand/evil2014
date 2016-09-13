@@ -141,13 +141,11 @@ class SidebarView {
 
     addMasterEffect (name) {
         const fx = this.model.addMasterEffect(name);
-        // fx.appendTo(this.$masterEffects);
         this.renderEffects();
     }
 
     addTracksEffect (name) {
         const fx = this.model.addTracksEffect(name);
-        // fx.appendTo(this.$tracksEffects);
         this.renderEffects();
     }
 
@@ -161,11 +159,6 @@ class SidebarView {
 
     setScale (s) {
         this.$masterScale.val(s);
-    }
-
-    readMasterEffect (fx) {
-        // fx.appendTo(this.$masterEffects);
-        this.renderEffects();
     }
 
     /**

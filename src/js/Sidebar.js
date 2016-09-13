@@ -68,8 +68,8 @@ class Sidebar {
     }
 
     // Playerから呼ばれる
-    update () {
-        this.mixer.effects_master.forEach(f => this.view.readMasterEffect(f));
+    render () {
+        this.view.renderEffects();
     }
 
     // viewから呼ばれる
