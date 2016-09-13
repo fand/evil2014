@@ -1,5 +1,3 @@
-const FXView = require('./FXView');
-const $      = require('jquery');
 const React  = require('react');
 
 class FuzzView extends React.Component {

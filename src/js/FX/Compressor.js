@@ -1,7 +1,10 @@
-const FX             = require('./FX');
-const CompressorView = require('./CompressorView');
+const FX = require('./FX');
 
 class Compressor extends FX {
+
+    get FX_TYPE () {
+        return 'COMPRESSOR';
+    }
 
     constructor (ctx) {
         super(ctx);
@@ -10,8 +13,6 @@ class Compressor extends FX {
         this.comp.connect(this.out);
         this.in.gain.value  = 1.0;
         this.out.gain.value = 1.0;
-
-        this.view = new CompressorView(this);
     }
 
     setAttack (d) {

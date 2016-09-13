@@ -1,34 +1,53 @@
-const FXView = require('./FXView');
-const $      = require('jquery');
+const React  = require('react');
+const Reverb = require('./Reverb');
 
-class ReverbView extends FXView {
+class ReverbView extends React.Component {
 
-    constructor (model) {
-        const dom = $('#tmpl_fx_reverb').clone();
-        dom.removeAttr('id');
+  constructor () {
+    super();
+    this.state = {};
+  }
 
-        super(model, dom);
+  componentWillReceiveProps (nextProps) {
+    this.setState(nextProps.model.getParam());
+  }
 
-        this.IRname = this.dom.find('[name = name]');
-        this.wet    = this.dom.find('[name = wet]');
+  onChangeIRname (e) {
+    this.props.model.setIRname(e.target.value);
+    this.setState(this.props.model.getParam());
+  }
+  onChangeWet (e) {
+    this.props.model.setWet(e.target.value / 100.0);
+    this.setState(this.props.model.getParam());
+  }
 
-        this.initEvent();
-    }
+  render () {
+    return (
+      <fieldset className="sidebar-effect sidebar-module">
+        <legend>Reverb</legend>
+        <i className="fa fa-minus sidebar-effect-minus"/>
 
-    initEvent () {
-        super.initEvent();
-        this.IRname.on('change input', () =>
-            this.model.setIR(this.IRname.val())
-        );
-        this.wet.on('change input', () =>
-            this.model.setParam({ wet: parseFloat(this.wet.val()) / 100.0 })
-        );
-    }
+        <div className="clearfix">
+          <label>type</label>
+          <select name="name"
+            value={this.state.IRname}
+            onChange={(e) => this.onChangeIRname(e)}>
+            {Object.keys(Reverb.IR_URL).map(i => <option value={i} key={i}>{i}</option>)}
+          </select>
+        </div>
 
-    setParam (p) {
-        if (p.IRname != null) { this.IRname.val(p.IRname); }
-        if (p.IRname != null) { this.wet.val(p.wet * 100); }
-    }
+        <div className="clearfix">
+          <label>wet</label>
+          <input name="wet" type="range"
+            min="0" max="100"
+            value={this.state.wet * 100}
+            onChange={(e) => this.onChangeWet(e)}/>
+        </div>
+
+      </fieldset>
+
+    );
+  }
 
 }
 
