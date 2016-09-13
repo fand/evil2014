@@ -1,37 +1,51 @@
-const FXView = require('./FXView');
-const $      = require('jquery');
+const React  = require('react');
 
-class DoubleView extends FXView {
+class DoubleView extends React.Component {
 
-    constructor (model) {
-        const dom = $('#tmpl_fx_double').clone();
-        dom.removeAttr('id');
-        super(model, dom);
+  constructor () {
+    super();
+    this.state = {};
+  }
 
-        this.delay  = this.dom.find('[name=delay]');
-        this.width  = this.dom.find('[name=width]');
+  componentWillReceiveProps (nextProps) {
+    this.setState(nextProps.model.getParam());
+  }
 
-        this.initEvent();
-    }
+  onChangeDelay (e) {
+    this.props.model.setDelay(e.target.value / 1000.0);
+    this.setState(this.props.model.getParam());
+  }
 
-    initEvent () {
-        super.initEvent();
-        this.delay.on('change input', () =>
-            this.model.setParam({ delay: parseFloat(this.delay.val()) / 1000.0 })
-        );
-        this.width.on('change input', () =>
-            this.model.setParam({ width: parseFloat(this.width.val()) / 200.0 + 0.5 })  // [0.5, 1.0]
-        );
-    }
+  onChangeWidth (e) {
+    this.props.model.setWidth(e.target.value / 200.0 + 0.5);
+    this.setState(this.props.model.getParam());
+  }
 
-    setParam (p) {
-        if (p.delay != null) {
-            this.delay.val(p.delay * 1000);
-        }
-        if (p.width != null) {
-            this.width.val((p.width - 0.5) * 200);
-        }
-    }
+  render () {
+    return (
+      <fieldset className="sidebar-effect sidebar-module">
+        <legend>Double</legend>
+        <i className="fa fa-minus sidebar-effect-minus"/>
+
+        <div className="clearfix">
+          <label>delay</label>
+          <input name="delay" type="range"
+            min="10" max="100"
+            value={this.state.delay * 1000}
+            onChange={(e) => this.onChangeDelay(e)}/>
+         </div>
+
+        <div className="clearfix">
+          <label>width</label>
+          <input name="width" type="range"
+            min="0" max="100"
+            value={(this.state.width - 0.5) * 200}
+            onChange={(e) => this.onChangeWidth(e)}/>
+        </div>
+
+      </fieldset>
+    );
+  }
 
 }
 

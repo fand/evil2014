@@ -1,10 +1,10 @@
-const FX        = require('./FX');
-const DelayView = require('./DelayView');
+const FX = require('./FX');
 
 class Delay extends FX {
 
     constructor (ctx) {
         super(ctx);
+        this.FX_TYPE = 'DELAY';
 
         this.delay = this.ctx.createDelay();
         this.delay.delayTime.value = 0.23;
@@ -26,8 +26,6 @@ class Delay extends FX {
 
         this.wet.connect(this.out);
         this.in.connect(this.out);
-
-        this.view = new DelayView(this);
     }
 
     setDelay (d) {

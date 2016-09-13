@@ -6,6 +6,7 @@ class Double extends FX {
 
     constructor (ctx) {
         super(ctx);
+        this.FX_TYPE = 'DOUBLE';
 
         this.delay = ctx.createDelay();
         this.delay.delayTime.value = 0.03;

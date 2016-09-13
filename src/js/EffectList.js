@@ -1,10 +1,17 @@
-const React = require('react');
-const FuzzView = require('./FX/FuzzView');
+const React      = require('react');
+const FuzzView   = require('./FX/FuzzView');
+const DoubleView = require('./FX/DoubleView');
+const DelayView  = require('./FX/DelayView');
 
 const renderFX = (fx, key) => {
     if (fx.FX_TYPE === 'FUZZ') {
-        console.log(fx);
         return <FuzzView model={fx} key={key}/>;
+    }
+    if (fx.FX_TYPE === 'DOUBLE') {
+        return <DoubleView model={fx} key={key}/>;
+    }
+    if (fx.FX_TYPE === 'DELAY') {
+        return <DelayView model={fx} key={key}/>;
     }
     return null;
 };

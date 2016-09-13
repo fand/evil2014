@@ -1,52 +1,67 @@
-const FXView = require('./FXView');
-const $      = require('jquery');
+const React = require('react');
 
-class DelayView extends FXView {
+class DelayView extends React.Component {
 
-    constructor (model) {
-        const dom = $('#tmpl_fx_delay').clone();
-        dom.removeAttr('id');
+  constructor () {
+    super();
+    this.state = {};
+  }
 
-        super(model, dom);
+  componentWillReceiveProps (nextProps) {
+    this.setState(nextProps.model.getParam());
+  }
 
-        this.delay    = this.dom.find('[name=delay]');
-        this.feedback = this.dom.find('[name=feedback]');
-        this.lofi     = this.dom.find('[name=lofi]');
-        this.wet      = this.dom.find('[name=wet]');
+  onChangeDelay (e) {
+    this.props.model.setDelay(e.target.value / 1000.0);
+    this.setState(this.props.model.getParam());
+  }
 
-        this.initEvent();
-    }
+  onChangeWidth (e) {
+    this.props.model.setWidth(e.target.value / 200.0 + 0.5);
+    this.setState(this.props.model.getParam());
+  }
 
-    initEvent () {
-        super.initEvent();
-        this.wet.on('change input', () =>
-            this.model.setParam({
-                wet: parseFloat(this.wet.val()) / 100.0,
-            })
-        );
-        this.delay.on('change input', () =>
-            this.model.setParam({
-                delay: parseFloat(this.delay.val()) / 1000.0,
-            })
-        );
-        this.feedback.on('change input', () =>
-            this.model.setParam({
-                feedback: parseFloat(this.feedback.val()) / 100.0,
-            })
-        );
-        this.lofi.on('change input', () =>
-            this.model.setParam({
-                lofi: parseFloat(this.lofi.val()) * 5.0 / 100.0,
-            })
-        );
-    }
+  render () {
+    return (
+      <fieldset className="sidebar-effect sidebar-module">
+        <legend>Delay</legend>
+        <i className="fa fa-minus sidebar-effect-minus"/>
 
-    setParam (p) {
-        if (p.delay) { this.delay.val(p.delay * 1000); }
-        if (p.feedback) { this.feedback.val(p.feedback * 100); }
-        if (p.lofi) { this.lofi.val(p.lofi * 20); }
-        if (p.wet) { this.wet.val(p.wet * 100); }
-    }
+        <div className="clearfix">
+          <label>delay</label>
+          <input name="delay" type="range"
+            min="50" max="1000"
+            value={this.state.delay * 1000}
+            onChange={(e) => this.onChangeDelay(e)}/>
+        </div>
+
+        <div className="clearfix">
+          <label>feedback</label>
+          <input name="feedback" type="range"
+            min="0" max="100"
+            value={this.state.feedback * 100}
+            onChange={(e) => this.onChangeFeedback(e)}/>
+        </div>
+
+        <div className="clearfix">
+          <label>lofi</label>
+          <input name="lofi" type="range"
+            min="0" max="100"
+            value={this.state.lofi * 20}
+            onChange={(e) => this.onChangeLofi(e)}/>
+        </div>
+
+        <div className="clearfix">
+          <label>wet</label>
+          <input name="wet" type="range"
+            min="0" max="100"
+            value={this.state.wet * 100}
+            onChange={(e) => this.onChangeWet(e)}/>
+        </div>
+
+      </fieldset>
+    );
+  }
 
 }
 
