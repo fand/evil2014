@@ -652,7 +652,8 @@ canvas:active {
   top: 0px;
   right: 0px;
   margin: 0px;
-  padding: 0px; }
+  padding: 0px;
+  transition: left 0.2s ease; }
 
 .sidebar {
   position: absolute;
