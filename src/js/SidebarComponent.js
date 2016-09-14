@@ -27,10 +27,12 @@ class SidebarComponent extends React.Component {
 
   addMasterEffect (name) {
     this.props.model.addMasterEffect(name);
+    this.forceUpdate(); // TODO: どうにかする
   }
 
   addTracksEffect (name) {
     this.props.model.addTracksEffect(name);
+    this.forceUpdate(); // TODO: どうにかする
   }
 
   /**
