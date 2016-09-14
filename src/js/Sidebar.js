@@ -54,7 +54,7 @@ class Sidebar {
 
     // Playerから呼ばれる
     render () {
-        this.view.renderEffects();
+        console.log('render called! this is needless anymore!');
     }
 
     // viewから呼ばれる

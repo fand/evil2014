@@ -33,7 +33,7 @@ class SidebarMasterHeader extends React.Component {
     super();
     this.state = {
       isEditing : false,
-      scene     : null,
+      scene     : {},
     };
   }
 
@@ -102,7 +102,7 @@ class SidebarMasterHeader extends React.Component {
           <label>key</label>
           <select name="key"
             value={this.state.scene.key}
-            onChange={(e) => this.onChangeScale(e)}>
+            onChange={(e) => this.onChangeKey(e)}>
             {KEYS.map(k => <option key={k}>{k}</option>)}
           </select>
         </div>
@@ -139,7 +139,7 @@ class SidebarMasterHeader extends React.Component {
       <fieldset className="sidebar-module sidebar-name">
         <legend>
           <input name="name" type="text"
-            value={this.state.scene ? this.state.scene.name : ''}
+            value={this.state.scene.name || '-'}
             onChange={(e) => this.onChangeSceneName(e)}/>
         </legend>
         {this.state.isEditing ? this.renderControl() : this.renderDisplay()}
@@ -150,6 +150,7 @@ class SidebarMasterHeader extends React.Component {
 }
 
 SidebarMasterHeader.propTypes = {
+  scene         : React.PropTypes.any.isRequired,
   onChangeScene : React.PropTypes.func.isRequired,
 };
 
