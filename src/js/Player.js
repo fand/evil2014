@@ -48,24 +48,18 @@ class Player {
         // @duration = (60000.0 / @bpm) / 8.0
         this.duration = 7500.0 / this.bpm;
         this.synth.forEach(s => s.setDuration(this.duration));
-
-        this.sidebar.setBPM(this.bpm);
     }
 
     setKey (key) {
         this.key = key;
         this.scene.key = key;
         this.synth.forEach(s => s.setKey(key));
-
-        this.sidebar.setKey(key);
     }
 
     setScale (scale) {
         this.scale = scale;
         this.scene.scale = scale;
         this.synth.forEach(s => s.setScale(scale));
-
-        this.sidebar.setScale(scale);
     }
 
     isPlaying () { return this.is_playing; }
@@ -285,7 +279,7 @@ class Player {
         this.session.setSynth(this.synth);
         this.session.readSong(this.song);
         this.mixer.readParam(this.song.mixer);
-        this.sidebar.update();
+        this.sidebar.render();
 
         this.view.setSynthNum(this.synth.length, this.synth_pos);
         this.resetSceneLength()

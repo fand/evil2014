@@ -38,15 +38,13 @@ class FX {
         this.wet.gain.value = d;
     }
 
-    appendTo (dst) {
-        $(dst).append(this.view.dom);
-        this.view.initEvent();
-    }
-
     remove () {
         this.source.removeEffect(this);
     }
 
+    /**
+     * @param {(Sampler|Synth|Mixer)}
+     */
     setSource (source) {
         this.source = source;
     }

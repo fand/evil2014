@@ -179,6 +179,11 @@ class Mixer {
         throw new TypeError('Unknown effect name', name);
     }
 
+    /**
+     * Called by Sidebar.
+     * @param {string} name - FX type
+     * @returns {FX} fx
+     */
     addMasterEffect (name) {
         const fx = this._createEffect(name);
         const pos = this.effects_master.length;
@@ -198,6 +203,12 @@ class Mixer {
         return fx;
     }
 
+    /**
+     * Called by Sidebar.
+     * @param {number} x - The number of the track
+     * @param {string} name - FX type
+     * @returns {FX} fx
+     */
     addTracksEffect (x, name) {
         const fx = this._createEffect(name);
         this.player.synth[x].insertEffect(fx);
@@ -219,6 +230,22 @@ class Mixer {
             fx.disconnect();
         }
         this.effects_master.splice(i, 1);
+    }
+
+    /**
+     * Called by Sidebar.
+     * @returns {FX[]}
+     */
+    getMasterEffects () {
+        return this.effects_master;
+    }
+    /**
+     * Called by Sidebar.
+     * @param {number} x - synth num
+     * @returns {FX[]} fx
+     */
+    getTracksEffects (x) {
+        return this.player.synth[x].effects;
     }
 
 }

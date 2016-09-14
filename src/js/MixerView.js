@@ -92,7 +92,7 @@ class MixerView {
     setPans () {
         const p        = $.map(this.pans, (_p) => 1.0 - parseFloat(_p.val()) / 200.0);
         const p_master = 1.0 - parseFloat(this.pan_master.value) / 200.0;
-        console.log(this.pan_master);
+
         this.model.setPans(p, p_master);
 
         $(this.pans).each((i, p) => {

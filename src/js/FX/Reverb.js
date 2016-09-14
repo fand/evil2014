@@ -1,5 +1,4 @@
-const FX         = require('./FX');
-const ReverbView = require('./ReverbView');
+const FX = require('./FX');
 
 const IR_URL = {
     '5SEC_HANG_VERB'          : 'static/IR/H3000/394_5SEC_HANG_VERB.wav',
@@ -107,13 +106,16 @@ const IR_URL = {
     'WARM_HALL'               : 'static/IR/H3000/589_WARM_HALL.wav',
     "BOB'S_ROOM"              : "static/IR/H3000/578_BOB'S_ROOM.wav",
     "DREW'S_CHAMBER"          : "static/IR/H3000/561_DREW'S_CHAMBER.wav",
-    "EXPLODING_'VERB"         : "static/IR/H3000/219_EXPLODING_'VERB.wav",
     "EXPLODING_'vERB"         : "static/IR/H3000/592_EXPLODING_'vERB.wav",
 };
 
 const IR_LOADED = {};
 
 class Reverb extends FX {
+
+    get FX_TYPE () {
+        return 'REVERB';
+    }
 
     constructor (ctx) {
         super(ctx);
@@ -124,13 +126,10 @@ class Reverb extends FX {
         this.wet.connect(this.out);
         this.in.connect(this.out);
 
-        this.setIR('BIG_SNARE');
-
-        this.view = new ReverbView(this);
-        this.view.setParam(this.getParam());
+        this.setIRname('BIG_SNARE');
     }
 
-    setIR (IRname) {
+    setIRname (IRname) {
         this.IRname = IRname;
         if (IR_LOADED[this.IRname] != null) {
             this.reverb.buffer = IR_LOADED[this.IRname];
@@ -161,7 +160,7 @@ class Reverb extends FX {
     }
 
     setParam (p) {
-        if (p.IRname != null) { this.setIR(p.IRname); }
+        if (p.IRname != null) { this.setIRname(p.IRname); }
         if (p.wet != null) { this.setWet(p.wet); }
         this.view.setParam(p);
     }
@@ -175,5 +174,7 @@ class Reverb extends FX {
     }
 
 }
+
+Reverb.IR_URL = IR_URL;
 
 module.exports = Reverb;

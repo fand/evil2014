@@ -227,13 +227,13 @@ class SessionView {
             this.is_clicked = false;
         })
         .on('mousedown', (e) => {
-            const pos = this.getPlayPos(this.rect_master, this.wrapper_master, e);
+            let pos = this.getPlayPos(this.rect_master, this.wrapper_master, e);
             if (pos.y >= 0) {
                 this.cueMaster(pos.x, pos.y)
             }
             else {
                 pos = this.getPos(this.rect_master, this.wrapper_master, e, 'master')
-                this.is_clicked = true
+                this.is_clicked = true;
             }
 
             // for both cases

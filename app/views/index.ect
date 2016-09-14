@@ -87,116 +87,13 @@
     </div>
 
     <div id="mixer-sidebar">
-      <div id="sidebar-wrapper">
-        <div id="sidebar-tracks-wrapper" class="sidebar">
-          <div id="sidebar-tracks">
-
-            <div class="sidebar-effects">
-              <fieldset class="sidebar-module sidebar-name">
-                <legend><input name="name" type="text" value="Synth #0" /></legend>
-                <input class="is-on" name="isOn" type="checkbox" />
-                <span class="is-on-label">Default: On</span>
-              </fieldset>
-            </div>
-
-            <fieldset class="sidebar-module sidebar-add-effect clearfix">
-              <select class="add-type">
-                <option>Fuzz</option>
-                <option>Double</option>
-                <option>Comp</option>
-                <option>Delay</option>
-                <option>Reverb</option>
-              </select>
-              <input class="add-btn" type="button" value="add"/>
-            </fieldset>
-
-          </div>
-
-
-        </div>
-
-
-        <div id="sidebar-master-wrapper" class="sidebar">
-          <div id="sidebar-master">
-
-            <div class="sidebar-effects">
-
-              <fieldset id="sidebar-master-control" class="sidebar-module sidebar-name">
-                <legend><input name="name" type="text" value="section-0" /></legend>
-
-                <div class="display clearfix">
-                  <div class="display-current-control"></div>
-                  <input name="edit" type="button" value="edit"/>
-                </div>
-
-
-                <div class="control clearfix">
-                  <label>key</label>
-                  <select name="key">
-                    <option selected="selected">A</option>
-                    <option>D</option>
-                    <option>G</option>
-                    <option>C</option>
-                    <option>F</option>
-                    <option>Bb</option>
-                    <option>Eb</option>
-                    <option>Ab</option>
-                    <option>Db</option>
-                    <option>Gb</option>
-                    <option>B</option>
-                    <option>E</option>
-                  </select>
-                </div>
-
-                <div class="control clearfix">
-                  <label>scale</label>
-                  <select name="mode">
-                    <option selected="selected">Major</option>
-                    <option>minor</option>
-                    <option>Pentatonic</option>
-                    <option>Harm-minor</option>
-                    <option>Dorian</option>
-                    <option>Phrygian</option>
-                    <option>Lydian</option>
-                    <option>Mixolydian</option>
-                    <option>CHROMATIC</option>
-                  </select>
-                </div>
-
-                <div class="control clearfix">
-                  <label>bpm</label>
-                  <input name="bpm"   type="number" min="0" max="50000" value="120">
-                </div>
-
-                <div class="control clearfix">
-                  <input name="save" type="button" value="save"/>
-                </div>
-              </fieldset>
-
-            </div>
-
-            <fieldset class="sidebar-module sidebar-add-effect clearfix">
-              <select class="add-type">
-                <option>Fuzz</option>
-                <option>Double</option>
-                <option>Comp</option>
-                <option>Delay</option>
-                <option>Reverb</option>
-              </select>
-              <input class="add-btn" type="button" value="add"/>
-            </fieldset>
-
-          </div>
-        </div>
-      </div>
+      <div id="sidebar-wrapper"></div>
     </div>
   </div>
 
   <div id="templates">
     <% include 'synth/synth' %>
     <% include 'synth/sampler' %>
-
-    <% include 'effect' %>
 
     <div class="console-track">
       <div class="pan-label">C</div>

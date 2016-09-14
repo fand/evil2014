@@ -5,26 +5,33 @@ class Fuzz extends FX {
 
     constructor (ctx) {
         super(ctx);
+        this.FX_TYPE = 'FUZZ';
+
         this.fuzz = ctx.createWaveShaper();
         this.in.connect(this.fuzz);
         this.fuzz.connect(this.out);
+
         this.in.gain.value  = 1.0;
         this.out.gain.value = 1.0;
-        this.type = 'Sigmoid';
-        this.samples = 2048;
+        this.type           = 'Sigmoid';
+        this.samples        = 2048;
+
         this.fuzz.curve = new Float32Array(this.samples);
         this.setGain(0.08);
-
-        this.view = new FuzzView(this);
     }
 
     setType (type) {
         this.type = type;
+        this.updateCurve();
     }
 
     setGain (gain) {
         this.gain = gain;
-        const sigmax = 2.0 / (1 + Math.exp(-gain * 1.0)) - 1.0;
+        this.updateCurve();
+    }
+
+    updateCurve () {
+        const sigmax = 2.0 / (1 + Math.exp(-this.gain * 1.0)) - 1.0;
         const ratio = 1.0 / sigmax;
 
         if (this.type === 'Sigmoid') {

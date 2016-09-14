@@ -1,3 +1,5 @@
+const $ = require('jquery');
+
 class FXView {
     constructor (model, dom) {
         this.model = model;

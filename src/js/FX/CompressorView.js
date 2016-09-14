@@ -1,61 +1,99 @@
-const FXView = require('./FXView');
-const $      = require('jquery');
+const React  = require('react');
 
-class CompressorView extends FXView {
+class CompressorView extends React.Component {
 
-    constructor (model) {
-        const dom = $('#tmpl_fx_compressor').clone();
-        super(model, dom);
-        this.model = model;
-        this.dom = dom;
-        this.dom.removeAttr('id');
+  constructor () {
+    super();
+    this.state = {};
+  }
 
-        this.attack    = this.dom.find('[name=attack]');
-        this.release   = this.dom.find('[name=release]');
-        this.threshold = this.dom.find('[name=threshold]');
-        this.ratio     = this.dom.find('[name=ratio]');
-        this.knee      = this.dom.find('[name=knee]');
-        this.input     = this.dom.find('[name=input]');
-        this.output    = this.dom.find('[name=output]');
+  componentWillReceiveProps (nextProps) {
+    this.setState(nextProps.model.getParam());
+  }
 
-        this.initEvent();
-    }
+  update (e) {
+    this.props.model.setInput(this.input.value / 100.0);
+    this.props.model.setOutput(this.output.value / 100.0);
+    this.props.model.setAttack(this.attack.value / 1000.0);
+    this.props.model.setRelease(this.release.value / 1000.0);
+    this.props.model.setThreshold(this.threshold.value / -10.0);
+    this.props.model.setRatio(this.ratio.value);
+    this.props.model.setKnee(this.knee.value / 1000.0);
+    this.setState(this.props.model.getParam());
+  }
 
-    initEvent () {
-        super.initEvent();
+  render () {
+    return (
+      <fieldset className="sidebar-effect sidebar-module">
+        <legend>Comp</legend>
+        <i className="fa fa-minus sidebar-effect-minus"/>
 
-        this.input.on('change input', () => {
-            this.model.setParam({ input : parseFloat(this.input.val()) / 100.0 });
-        });
-        this.output.on('change input', () => {
-            this.model.setParam({ output : parseFloat(this.output.val()) / 100.0 });
-        });
-        this.attack.on('change input', () => {
-            this.model.setParam({ attack: parseFloat(this.attack.val()) / 1000.0 })
-        });
-        this.release.on('change input', () => {
-            this.model.setParam({ release: parseFloat(this.release.val()) / 1000.0 });
-        })
-        this.threshold.on('change input', () => {
-            this.model.setParam({ threshold: (parseFloat(this.threshold.val()) / -10.0) });  // [0, 100]
-        });
-        this.ratio.on('change input', () => {
-            this.model.setParam({ ratio: parseInt(this.ratio.val()) });
-        });
-        this.knee.on('change input', () => {
-            this.model.setParam({ knee: parseFloat(this.knee.val()) / 1000.0 });
-        });
-    }
+        <div className="clearfix">
+          <label>input</label>
+          <input name="input" type="range"
+            min="0" max="100"
+            ref={i => { this.input = i; }}
+            value={this.state.input * 100}
+            onChange={() => this.update()}/>
+        </div>
 
-    setParam (p) {
-        if (p.input != null) { this.input.val(p.input * 100); }
-        if (p.output != null) { this.output.val(p.output * 100); }
-        if (p.attack != null) { this.attack.val(p.attack * 1000); }
-        if (p.release != null) { this.release.val(p.release * 1000); }
-        if (p.threshold != null) { this.threshold.val(p.threshold * -10); }
-        if (p.ratio != null) { this.ratio.val(p.ratio); }
-        if (p.knee != null) { this.knee.val(p.knee * 1000); }
-    }
+        <div className="clearfix">
+          <label>attack</label>
+          <input name="attack" type="range"
+            min="0" max="1000"
+            ref={i => { this.attack = i; }}
+            value={this.state.attack * 1000}
+            onChange={() => this.update()}/>
+        </div>
+
+        <div className="clearfix">
+          <label>release</label>
+          <input name="release" type="range"
+            min="1" max="1000"
+            ref={i => { this.release = i; }}
+            value={this.state.release * 1000}
+            onChange={() => this.update()}/>
+        </div>
+
+        <div className="clearfix">
+          <label>threshold</label>
+          <input name="threshold" type="range"
+            min="0" max="1000"
+            ref={i => { this.threshold = i; }}
+            value={this.state.threshold * -10}
+            onChange={() => this.update()}/>
+        </div>
+
+        <div className="clearfix">
+          <label>ratio</label>
+          <input name="ratio" type="range"
+            min="1" max="20"
+            ref={i => { this.ratio = i; }}
+            value={this.state.ratio}
+            onChange={() => this.update()}/>
+        </div>
+
+        <div className="clearfix">
+          <label>knee</label>
+          <input name="knee" type="range"
+            min="0" max="40"
+            ref={i => { this.knee = i; }}
+            value={this.state.knee * 1000}
+            onChange={() => this.update()}/>
+        </div>
+
+        <div className="clearfix">
+          <label>output</label>
+          <input name="output" type="range"
+            min="0" max="100"
+            ref={i => { this.output = i; }}
+            value={this.state.output * 100}
+            onChange={() => this.update()}/>
+        </div>
+
+      </fieldset>
+    );
+  }
 
 }
 

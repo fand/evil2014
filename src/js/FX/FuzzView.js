@@ -1,46 +1,79 @@
-const FXView = require('./FXView');
-const $      = require('jquery');
+const React  = require('react');
 
-class FuzzView extends FXView {
+class FuzzView extends React.Component {
 
-    constructor (model) {
-        const dom = $('#tmpl_fx_fuzz').clone();
-        super(model, dom);
-        this.model = model;
-        this.dom = dom;
-        this.dom.removeAttr('id');
+  constructor () {
+    super();
+    this.state = {};
+  }
 
-        this.type   = this.dom.find('[name=type]');
-        this.gain   = this.dom.find('[name=gain]');
-        this.input  = this.dom.find('[name=input]');
-        this.output = this.dom.find('[name=output]');
+  componentWillReceiveProps (nextProps) {
+    this.setState(nextProps.model.getParam());
+  }
 
-        this.initEvent();
-    }
+  onChangeInput (e) {
+    this.props.model.setInput(e.target.value / 100.0);
+    this.setState(this.props.model.getParam());
+  }
+  onChangeOutput (e) {
+    this.props.model.setOutput(e.target.value / 100.0);
+    this.setState(this.props.model.getParam());
+  }
+  onChangeGain (e) {
+    this.props.model.setGain(e.target.value / 100.0);
+    this.setState(this.props.model.getParam());
+  }
+  onChangeType (e) {
+    this.props.model.setType(e.target.value);
+    this.setState(this.props.model.getParam());
+  }
 
-    initEvent () {
-        super.initEvnet();
-        this.input.on('change input', () =>
-            this.model.setParam({input: parseFloat(this.input.val()) / 100.0})
-        )
-        this.output.on('change input', () =>
-            this.model.setParam({output: parseFloat(this.output.val()) / 100.0})
-        )
-        this.type.on('change input', () =>
-            this.model.setParam({type: this.type.val()})
-        )
-        this.gain.on('change input', () =>
-            this.model.setParam({gain: parseFloat(this.gain.val())/ 100.0})
-        )
-    }
+  render () {
+    return (
+      <div className="sidebar-effect">
+        <fieldset className="sidebar-module">
+          <legend>Fuzz</legend>
+          <i className="fa fa-minus sidebar-effect-minus"></i>
 
-    setParam (p) {
-        if (p.input != null) {this.input.val(p.input * 100);}
-        if (p.output != null) {this.output.val(p.output * 100);}
-        if (p.type != null) {this.type.val(p.type);}
-        if (p.gain != null) {this.gain.val(p.gain * 100);}
-    }
+          <div className="clearfix">
+            <label>input</label>
+            <input name="input"
+              type="range" min="0" max="100"
+              value={this.state.input * 100}
+              onChange={(e) => this.onChangeInput(e)}/>
+          </div>
+
+          <div className="clearfix">
+            <label>type</label>
+            <select name="type"
+              value={this.state.type}
+              onChange={(e) => this.onChangeType(e)}>
+              <option value="Sigmoid">Sigmoid</option>
+              <option value="Octavia">Octavia</option>
+            </select>
+          </div>
+
+          <div className="clearfix">
+            <label>gain</label>
+            <input name="gain"
+              type="range" min="3" max="99"
+              value={this.state.gain * 100}
+              onChange={(e) => this.onChangeGain(e)}/>
+          </div>
+
+          <div className="clearfix">
+            <label>output</label>
+            <input name="output" type="range"
+              min="0" max="100"
+              value={this.state.output * 100}
+              onChange={(e) => this.onChangeOutput(e)}/>
+          </div>
+
+        </fieldset>
+      </div>
+    );
+  }
 
 }
 
-module.exports = FuzzView
+module.exports = FuzzView;
