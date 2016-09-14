@@ -85,8 +85,12 @@ class SidebarMasterHeader extends React.Component {
 
   renderDisplay () {
     return (
-      <div className="display clearfix">
-        <div className="display-current-control"/>
+      <div className="sidebar-input">
+        <span>
+          <span>{this.state.scene.bpm} BPM</span>&nbsp;
+          <span>{this.state.scene.key}</span>&nbsp;
+          <span>{this.state.scene.scale}</span>&nbsp;
+        </span>
         <button name="edit" type="button"
           onClick={() => this.showEditor()} value="edit">
           edit
@@ -98,8 +102,8 @@ class SidebarMasterHeader extends React.Component {
   renderControl () {
     return (
       <div>
-        <div className="control clearfix">
-          <label>key</label>
+        <div className="sidebar-input">
+          <label className="sidebar-input-left">key</label>
           <select name="key"
             value={this.state.scene.key}
             onChange={(e) => this.onChangeKey(e)}>
@@ -107,8 +111,8 @@ class SidebarMasterHeader extends React.Component {
           </select>
         </div>
 
-        <div className="control clearfix">
-          <label>scale</label>
+        <div className="sidebar-input">
+          <label className="sidebar-input-left">scale</label>
           <select name="mode"
             value={this.state.scene.scale}
             onChange={(e) => this.onChangeScale(e)}>
@@ -116,20 +120,19 @@ class SidebarMasterHeader extends React.Component {
           </select>
         </div>
 
-        <div className="control clearfix">
-          <label>bpm</label>
+        <div className="sidebar-input">
+          <label className="sidebar-input-left">bpm</label>
           <input name="bpm" type="number"
             min="0" max="50000"
             value={this.state.scene.bpm}
             onChange={(e) => this.onChangeBPM(e)}/>
         </div>
 
-        <div className="control clearfix">
-          <button name="save" type="button"
-            onClick={() => this.saveEditor()}>
-            save
-          </button>
-        </div>
+        <button name="save" type="button"
+          onClick={() => this.saveEditor()}>
+          save
+        </button>
+
       </div>
     );
   }

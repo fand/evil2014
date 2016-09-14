@@ -17,14 +17,16 @@ class SidebarFooter extends React.Component {
 
   render () {
     return (
-      <fieldset className="sidebar-module sidebar-add-effect clearfix">
-        <select className="add-type" ref={(s) => { this.select = s; }}>
-          {EFFECT_NAMES.map(f => <option key={f}>{f}</option>)}
-        </select>
-        <button type="button" className="add-btn"
-          onClick={() => this.onClick()}>
-          add
-        </button>
+      <fieldset className="sidebar-add-effect">
+        <div className="sidebar-input">
+          <select className="add-type" ref={(s) => { this.select = s; }}>
+            {EFFECT_NAMES.map(f => <option key={f}>{f}</option>)}
+          </select>
+          <button type="button" className="add-btn"
+            onClick={() => this.onClick()}>
+            add
+          </button>
+        </div>
       </fieldset>
     );
   }

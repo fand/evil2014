@@ -21,7 +21,7 @@ class Sidebar {
         window.show = (pos) => {
             this.pos = pos;
             this.show(this.song, pos);
-        }
+        };
     }
 
     /**
