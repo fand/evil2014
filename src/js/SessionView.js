@@ -1,4 +1,7 @@
 const $ = require('jquery');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const SocialButtons = require('./SocialButtons');
 
 class SessionView {
 
@@ -70,9 +73,8 @@ class SessionView {
         this.song_title     = this.song_info.find('#song-title');
         this.song_creator   = this.song_info.find('#song-creator');
 
-        this.social_twitter  = $('#twitter');
-        this.social_facebook = $('#facebook');
-        this.social_hatena   = $('#hatena');
+
+        this.social = ReactDOM.render(<SocialButtons song={this.model.song}/>, document.querySelector('#social'));
     }
 
     getCSRFToken () {
@@ -272,10 +274,6 @@ class SessionView {
             .on('focus', () => window.keyboard.beginInput())
             .on('change', () => this.setCreatorName())
             .on('blur', () => window.keyboard.endInput());
-
-        this.social_twitter.on('click',  () => this.share('twitter'));
-        this.social_facebook.on('click', () => this.share('facebook'));
-        this.social_hatena.on('click',   () => this.share('hatena'));
 
         this.readSong(this.song, this.current_cells);
     }
@@ -653,38 +651,6 @@ class SessionView {
 
     closeDialog () {
         this.dialog.css({ opacity: '1', 'z-index': '-10000' });
-    }
-
-    // Share button on dialogue
-    share (service) {
-        let text;
-        // Prepare the default text to share
-        if (this.song.title != null) {
-            if (this.song.creator != null) {
-                text = `"${this.song.title}" by ${this.song.creator}`;
-            }
-            else {
-                text = `"${this.song.title}"`;
-            }
-        }
-        else {
-            text = '"evil" by gmork';
-        }
-
-        const url = location.href;
-
-        if (service === 'twitter') {
-            const twUrl = `http://twitter.com/intent/tweet?url=${encodeURI(`${url}&text=${text}&hashtags=evil`)}`;
-            window.open(twUrl, 'Tweet', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1');
-        }
-        else if (service === 'facebook') {
-            const fbUrl = `http://www.facebook.com/sharer.php?&u=${url}`;
-            window.open(fbUrl, 'Share on facebook', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1');
-        }
-        else {
-            const hbUrl = 'http://b.hatena.ne.jp/entry/' + url.split('://')[1];
-            window.open(hbUrl);
-        }
     }
 
     changeSynth (song) {
