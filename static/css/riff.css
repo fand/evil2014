@@ -105,41 +105,47 @@ canvas:active {
 #top-sorry > a:hover {
   color: #def; }
 
-#dialog {
+.Dialog {
   position: fixed;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.8);
-  z-index: -10000;
-  opacity: 0; }
+  z-index: 10; }
+  .Dialog__Window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -160px;
+    margin-left: -240px;
+    width: 480px;
+    height: 300px;
+    background-color: #fff;
+    border: 1px solid #8df;
+    border-radius: 3px; }
+  .Dialog__Close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    color: #eee;
+    cursor: pointer; }
+    .Dialog__Close:hover {
+      color: #666; }
 
-#dialog-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -160px;
-  margin-left: -240px;
-  width: 480px;
-  height: 300px;
-  background-color: #fff;
-  border: 1px solid #8df;
-  border-radius: 3px; }
+.Dialog__Message i, .Dialog__Success i, .Dialog__Failure i {
+  font-size: 100px;
+  width: 100px;
+  height: 100px; }
 
-.dialog-message {
-  position: absolute;
-  width: 400px;
-  height: 200px;
-  text-align: center; }
-
-.dialog-icon {
+.Dialog__Message__Icon {
   width: 100px;
   height: 100px;
   font-size: 100px;
   text-align: center; }
 
-.dialog-message-main {
+.Dialog__Message__Main {
   display: block;
   width: 100%;
   height: 36px;
@@ -150,7 +156,7 @@ canvas:active {
   text-shadow: none;
   color: #444; }
 
-.dialog-message-sub {
+.Dialog__Message__Sub {
   display: block;
   width: 100%;
   height: 24px;
@@ -163,27 +169,16 @@ canvas:active {
   -webkit-user-select: text;
   color: #444; }
 
-.dialog-message i {
-  font-size: 100px;
-  width: 100px;
-  height: 100px; }
-
-#dialog-success {
-  left: 40px; }
-
-#dialog-error {
-  top: 45px;
-  left: 40px;
-  color: #ccc; }
-
-#dialog-success i {
+.Dialog__Success i {
   color: #8f8; }
 
-#dialog-error i {
-  color: #ccc;
-  margin-bottom: 20px; }
+.Dialog__Failure {
+  color: #ccc; }
+  .Dialog__Failure i {
+    color: #ccc;
+    margin-bottom: 20px; }
 
-#dialog-socials {
+.Dialog__Social {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -191,42 +186,25 @@ canvas:active {
   margin-left: -140px;
   width: 280px;
   height: 80px; }
-
-.dialog-social {
-  display: block;
-  width: 64px;
-  height: 64px;
-  font-size: 64px;
-  text-align: center;
-  text-decoration: none;
-  color: #ddd; }
-
-.dialog-twitter {
-  position: absolute;
-  left: 0px; }
-
-.dialog-twitter:hover {
-  color: #0df;
-  cursor: pointer; }
-
-.dialog-facebook {
-  position: absolute;
-  right: 0px; }
-
-.dialog-facebook:hover {
-  color: #049;
-  cursor: pointer; }
-
-.dialog-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 16px;
-  color: #eee; }
-
-.dialog-close:hover {
-  color: #666;
-  cursor: pointer; }
+  .Dialog__Social__Button, .Dialog__Social__Twitter, .Dialog__Social__Facebook {
+    display: block;
+    width: 64px;
+    height: 64px;
+    font-size: 64px;
+    text-align: center;
+    text-decoration: none;
+    color: #ddd;
+    cursor: pointer; }
+  .Dialog__Social__Twitter {
+    position: absolute;
+    left: 0px; }
+    .Dialog__Social__Twitter:hover {
+      color: #0df; }
+  .Dialog__Social__Facebook {
+    position: absolute;
+    right: 0px; }
+    .Dialog__Social__Facebook:hover {
+      color: #049; }
 
 /* top left */
 #btn-save {
@@ -1212,7 +1190,7 @@ footer {
 legend {
   font-size: 12px; }
 
-.clearfix :after {
+.clearfix :after, .Dialog__Social :after {
   display: block;
   clear: both;
   height: 0px;

@@ -1,14 +1,18 @@
-const express = require('express');
-const morgan  = require('morgan');
-const path    = require('path');
-const ect     = require('ect');
-const ectRenderer = ect({ watch: true, root: __dirname + '/views', ext : '.ect' });
-const favicon = require('serve-favicon');
+const express    = require('express');
+const morgan     = require('morgan');
+const path       = require('path');
+const bodyParser = require('body-parser');
+const favicon    = require('serve-favicon');
 
-const routes   = require('./routes');
+const ect         = require('ect');
+const ectRenderer = ect({ watch: true, root: __dirname + '/views', ext : '.ect' });
+
+const routes = require('./routes');
 
 const app = express();
 app.use(morgan('combined'));
+app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ect');
 app.engine('ect', ectRenderer.render);

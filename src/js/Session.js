@@ -1,7 +1,7 @@
 const SessionView = require('./SessionView');
 const CONSTANT    = require('./Constant');
 
-const $ = require('jquery');  // Just for AJAX
+const axios = require('axios');
 
 // Control the patterns for tracks.
 class Session {
@@ -340,22 +340,17 @@ class Session {
         this.saveMasters();
         this.saveMixer();
 
-        const song_json = JSON.stringify(this.song);
-
         // Save the song via ajax.
-        $.ajax({
-            url      : '/',
-            type     : 'POST',
-            dataType : 'text',
-            data     : {
-                json       : song_json,
-                csrf_token : this.view.getCSRFToken(),
+        axios.post('/', {
+            data : {
+                song  : JSON.stringify(this.song),
+                token : this.view.getCSRFToken(),
             },
         })
-        .done((d) => {
+        .then((d) => {
             this.view.showSuccess(d, this.song.title, this.song.creator);
         })
-        .fail((err) => {
+        .catch((err) => {
             this.view.showError(err);
         });
     }

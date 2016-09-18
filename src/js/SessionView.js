@@ -2,6 +2,7 @@ const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const SocialButtons = require('./SocialButtons');
+const Dialog = require('./Dialog');
 
 class SessionView {
 
@@ -64,17 +65,15 @@ class SessionView {
         this.last_clicked = performance.now();
 
         // DOMs to save songs.
-        this.dialog         = $('#dialog');
-        this.dialog_wrapper = $('#dialog-wrapper');
-        this.dialog_close   = this.dialog.find('.dialog-close');
         this.btn_save       = $('#btn-save');
         this.btn_clear      = $('#btn-clear');
         this.song_info      = $('#song-info');
         this.song_title     = this.song_info.find('#song-title');
         this.song_creator   = this.song_info.find('#song-creator');
 
-
         this.social = ReactDOM.render(<SocialButtons song={this.model.song}/>, document.querySelector('#social'));
+
+        this.dialog = ReactDOM.render(<Dialog/>, document.querySelector('#dialog'));
     }
 
     getCSRFToken () {
@@ -258,12 +257,6 @@ class SessionView {
 
         // for Other view
         this.btn_save.on('click', () => this.model.saveSong());
-        this.dialog.on('mousedown', (e) => {
-            if ((! this.dialog_wrapper.is(e.target)) && this.dialog_wrapper.has(e.target).length == 0) {
-                this.closeDialog();
-            }
-        });
-        this.dialog_close.on('mousedown', () => this.closeDialog());
 
         this.song_title
             .on('focus', () => window.keyboard.beginInput())
@@ -609,48 +602,28 @@ class SessionView {
         this.readSong(this.song, this.current_cells);
     }
 
-    // Dialogs
-    showSuccess (_url, song_title, user_name) {
-        let text, title;
-        if (song_title != null) {
-            if (user_name != null) {
-                text = `"${song_title}" by ${user_name}`;
-            }
-            else {
-                text = `"${song_title}"`;
-            }
-            title = `${text} :: evil`;
-        }
-        else {
-            text = '"evil" by gmork';
-            title = 'evil';
-        }
-        const url = `http://evil.gmork.in/${_url}`;
-
-        history.pushState('', title, _url);
-        document.title = title;
-
-        this.dialog.css({ opacity: '1', 'z-index': '10000' });
-        this.dialog.find('#dialog-socials').show();
-        this.dialog.find('#dialog-success').show();
-        this.dialog.find('#dialog-error').hide();
-        this.dialog.find('.dialog-message-sub').text(url);
-
-        const tw_url = 'http://twitter.com/intent/tweet?url=' + encodeURI(url + '&text=' + text + '&hashtags=evil');
-        const fb_url = 'http://www.facebook.com/sharer.php?&u=' + url;
-        this.dialog.find('.dialog-twitter').attr('href', tw_url).on('click', () => this.closeDialog());
-        this.dialog.find('.dialog-facebook').attr('href', fb_url).on('click', () => this.closeDialog());
+    /**
+     * Called by Session.
+     */
+    showSuccess (_url, songTitle, userName) {
+        const songUrl = `http://evil.gmork.in/${_url}`;
+        this.dialog.setState({
+            isVisible : true,
+            isSuccess : true,
+            userName  : userName,
+            songTitle : songTitle,
+            songUrl   : songUrl,
+        });
     }
 
-    showError (error) {
-        this.dialog.css({ opacity: '1', 'z-index': '10000' });
-        this.dialog.find('#dialog-socials').hide();
-        this.dialog.find('#dialog-success').hide();
-        this.dialog.find('#dialog-error').show();
-    }
-
-    closeDialog () {
-        this.dialog.css({ opacity: '1', 'z-index': '-10000' });
+    /**
+     * Called by Session.
+     */
+    showError () {
+        this.dialog.setState({
+            isVisible : true,
+            isSuccess : false,
+        });
     }
 
     changeSynth (song) {
