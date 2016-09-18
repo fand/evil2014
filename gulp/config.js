@@ -18,7 +18,7 @@ module.exports = {
   },
   watch : {
     server : BASE('server/**/*'),
-    client : BASE('src/coffee/**/*'),
+    client : BASE('src/js/**/*'),
     sass   : BASE('src/scss/**/*'),
   },
   pm2 : {

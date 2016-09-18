@@ -24,8 +24,8 @@ const bundler = (entries, isWatching) => {
     const opts = {
         cache        : {},
         packageCache : {},
-        extensions   : ['.coffee', '.js'],
-        transform    : ['coffeeify', 'babelify'],
+        extensions   : ['.js'],
+        transform    : ['babelify'],
         paths        : config.paths,
         debug        : env.ENABLE_SOURCEMAPS,
         entries,

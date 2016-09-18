@@ -134,11 +134,6 @@ canvas:active {
     .Dialog__Close:hover {
       color: #666; }
 
-.Dialog__Message i, .Dialog__Success i, .Dialog__Failure i {
-  font-size: 100px;
-  width: 100px;
-  height: 100px; }
-
 .Dialog__Message__Icon {
   width: 100px;
   height: 100px;
@@ -622,6 +617,42 @@ canvas:active {
   left: 0px;
   width: 560px;
   height: 240px; }
+
+.Session__Cell, .Session__Track__Header, .Session__Track__Cell, .Session__EmptyTrack__Header, .Session__EmptyTrack__Cell {
+  width: 70px;
+  height: 20px;
+  border: 1px solid white;
+  background: #fefefe;
+  box-sizing: border-box; }
+
+.Session__Tracks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  z-index: 2;
+  margin: 1px; }
+
+.Session__EmptyTracks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  z-index: 1; }
+
+.Session__Track__Header {
+  background: #0df;
+  color: white;
+  margin-bottom: 4px;
+  text-align: center; }
+
+.Session__Track__Cell {
+  background: #eee; }
+
+.Session__EmptyTrack__Header {
+  margin-bottom: 4px; }
 
 #sidebar-wrapper {
   position: absolute;

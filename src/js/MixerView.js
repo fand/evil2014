@@ -110,7 +110,7 @@ class MixerView {
         g.forEach((_g, i) => {
             this.gains[i].val(_g * 100.0);
         });
-        thisgain_master.val(g_master * 100.0);
+        this.gain_master.val(g_master * 100.0);
     }
 
     readPans (p, p_master) {

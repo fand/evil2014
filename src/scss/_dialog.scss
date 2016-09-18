@@ -67,11 +67,11 @@
 }
 
 .Dialog__Success {
-    @extend .Dialog__Message;
+    // @extend .Dialog__Message;
     i { color: #8f8; }
 }
 .Dialog__Failure {
-    @extend .Dialog__Message;
+    // @extend .Dialog__Message;
     color : #ccc;
     i {
         color: #ccc;

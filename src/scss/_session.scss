@@ -47,3 +47,54 @@
     width: 560px;
     height: 240px;
 }
+
+.Session {
+    &__Cell {
+        width      : 70px;
+        height     : 20px;
+        border     : 1px solid white;
+        background : #fefefe;
+        box-sizing : border-box;
+    }
+
+    &__Tracks {
+        position: absolute;
+        top:0;
+        left:0;
+        display: flex;
+        flex-direction: row;
+        z-index: 2;
+        margin:1px;
+    }
+    &__EmptyTracks {
+        position: absolute;
+        top:0;
+        left:0;
+        display: flex;
+        flex-direction: row;
+        z-index: 1;
+    }
+
+    &__Track {
+        &__Header {
+            @extend .Session__Cell;
+            background: #0df;
+            color: white;
+            margin-bottom:4px;
+            text-align: center;
+        }
+        &__Cell {
+            @extend .Session__Cell;
+            background: #eee;
+        }
+    }
+    &__EmptyTrack {
+        &__Header {
+            @extend .Session__Cell;
+            margin-bottom:4px;
+        }
+        &__Cell {
+            @extend .Session__Cell;
+        }
+    }
+}

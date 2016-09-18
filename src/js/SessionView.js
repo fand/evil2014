@@ -3,6 +3,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const SocialButtons = require('./SocialButtons');
 const Dialog = require('./Dialog');
+const SessionComponent = require('./SessionComponent');
 
 class SessionView {
 
@@ -74,6 +75,9 @@ class SessionView {
         this.social = ReactDOM.render(<SocialButtons song={this.model.song}/>, document.querySelector('#social'));
 
         this.dialog = ReactDOM.render(<Dialog/>, document.querySelector('#dialog'));
+
+        this.sessionTracks = ReactDOM.render(<SessionComponent model={this.model}/>, document.querySelector('#session-tracks-wrapper2'));
+
     }
 
     getCSRFToken () {
@@ -286,6 +290,8 @@ class SessionView {
         this.current_cells = current_cells;
         this.resize();
 
+        this.sessionTracks.setState({ song });
+
         // Draw tracks
         for (let x = 0; x < Math.max(this.song.tracks.length + 1, 8); x++) {
             const t = this.song.tracks[x];
@@ -319,7 +325,7 @@ class SessionView {
             }
         }
 
-        this.drawScene(this.scene_pos, this.current_cells);
+        // this.drawScene(this.scene_pos, this.current_cells);
 
         this.selectCellMaster(this.select_pos);
 
@@ -329,73 +335,73 @@ class SessionView {
     }
 
     drawCellTracks (p, x, y) {
-        this.clearCell(this.ctx_tracks, x, y);
+        // this.clearCell(this.ctx_tracks, x, y);
 
         if (this.track_color[x] == null) {
             this.track_color[x] = this.color_schemes[this.song.tracks[x].type];
         }
-
-        this.ctx_tracks.strokeStyle = this.track_color[x][1];
-        this.ctx_tracks.lineWidth = 1;
-        this.ctx_tracks.strokeRect(x * this.w + 2, y * this.h + 2, this.w-2, this.h-2);
-        this.ctx_tracks.drawImage(this.img_play, 0, 0, 18, 18,  x*this.w + 3, y*this.h + 3, 16, 15);
-
-        this.ctx_tracks.fillStyle = this.track_color[x][1];
-        this.ctx_tracks.fillText(p.name, x * this.w + 24, (y + 1) * this.h - 6);
+        //
+        // this.ctx_tracks.strokeStyle = this.track_color[x][1];
+        // this.ctx_tracks.lineWidth = 1;
+        // this.ctx_tracks.strokeRect(x * this.w + 2, y * this.h + 2, this.w-2, this.h-2);
+        // this.ctx_tracks.drawImage(this.img_play, 0, 0, 18, 18,  x*this.w + 3, y*this.h + 3, 16, 15);
+        //
+        // this.ctx_tracks.fillStyle = this.track_color[x][1];
+        // this.ctx_tracks.fillText(p.name, x * this.w + 24, (y + 1) * this.h - 6);
     }
 
     drawCellMaster (p, x, y) {
-        this.clearCell(this.ctx_master, x, y);
-
-        this.ctx_master.strokeStyle = this.color[1];
-        this.ctx_master.lineWidth = 1;
-        this.ctx_master.strokeRect(2, y * this.h + 2, this.w_master-2, this.h-2);
-        this.ctx_master.drawImage(this.img_play, 0, 0, 18, 18, 3, y*this.h + 3, 16, 15);
-
-        this.ctx_master.fillStyle = this.color[1];
-        this.ctx_master.fillText(p.name, 24, (y + 1) * this.h - 6);
+        // this.clearCell(this.ctx_master, x, y);
+        //
+        // this.ctx_master.strokeStyle = this.color[1];
+        // this.ctx_master.lineWidth = 1;
+        // this.ctx_master.strokeRect(2, y * this.h + 2, this.w_master-2, this.h-2);
+        // this.ctx_master.drawImage(this.img_play, 0, 0, 18, 18, 3, y*this.h + 3, 16, 15);
+        //
+        // this.ctx_master.fillStyle = this.color[1];
+        // this.ctx_master.fillText(p.name, 24, (y + 1) * this.h - 6);
     }
 
     drawEmpty (ctx, x, y, drawStop) {
-        this.clearCell(ctx, x, y);
-        const x0 = x * this.w + 2;
-        const y0 = y * this.h + 2;
-        ctx.strokeStyle = this.color[0];
-        ctx.lineWidth = 1;
-        ctx.strokeRect(x0, y0, this.w-2, this.h-2);
-
-        if (!drawStop) { return; }
-
-        ctx.strokeStyle = '#bbb';
-        ctx.fillStyle   = '#eee';
-        ctx.strokeRect(x0 + 5, y0 + 5, 8, 8);
-        ctx.fillRect(x0 + 5, y0 + 5, 8, 8);
+        // this.clearCell(ctx, x, y);
+        // const x0 = x * this.w + 2;
+        // const y0 = y * this.h + 2;
+        // ctx.strokeStyle = this.color[0];
+        // ctx.lineWidth = 1;
+        // ctx.strokeRect(x0, y0, this.w-2, this.h-2);
+        //
+        // if (!drawStop) { return; }
+        //
+        // ctx.strokeStyle = '#bbb';
+        // ctx.fillStyle   = '#eee';
+        // ctx.strokeRect(x0 + 5, y0 + 5, 8, 8);
+        // ctx.fillRect(x0 + 5, y0 + 5, 8, 8);
     }
 
     drawEmptyMaster (y) {
-        this.clearCell(this.ctx_master, 0, y);
-        this.ctx_master.strokeStyle = this.color[0];
-        this.ctx_master.lineWidth = 1;
-        this.ctx_master.strokeRect(2, y * this.h + 2, this.w_master - 2, this.h - 2);
-        this.ctx_master.drawImage(this.img_play, 0, 0, 18, 18, 3, y * this.h + 3, 16, 15);
+        // this.clearCell(this.ctx_master, 0, y);
+        // this.ctx_master.strokeStyle = this.color[0];
+        // this.ctx_master.lineWidth = 1;
+        // this.ctx_master.strokeRect(2, y * this.h + 2, this.w_master - 2, this.h - 2);
+        // this.ctx_master.drawImage(this.img_play, 0, 0, 18, 18, 3, y * this.h + 3, 16, 15);
     }
 
     clearCell (ctx, x, y) {
-        if (ctx === this.ctx_master) {
-            ctx.clearRect(0, y * this.h, this.w_master, this.h);
-        }
-        else {
-            ctx.clearRect(x * this.w, y * this.h, this.w, this.h);
-        }
+        // if (ctx === this.ctx_master) {
+        //     ctx.clearRect(0, y * this.h, this.w_master, this.h);
+        // }
+        // else {
+        //     ctx.clearRect(x * this.w, y * this.h, this.w, this.h);
+        // }
     }
 
     drawMasterName () {
-        const m = this.ctx_master.measureText('MASTER');
-        const dx = (this.w - m.width)  / 2;
-        const dy = (this.offset_y - this.font_size) / 2;
-
-        this.ctx_master.fillStyle   = '#ccc';
-        this.ctx_master.fillText('MASTER', dx + 2, -dy - 3);
+        // const m = this.ctx_master.measureText('MASTER');
+        // const dx = (this.w - m.width)  / 2;
+        // const dy = (this.offset_y - this.font_size) / 2;
+        //
+        // this.ctx_master.fillStyle   = '#ccc';
+        // this.ctx_master.fillText('MASTER', dx + 2, -dy - 3);
     }
 
     drawTrackName (x, name, type) {
@@ -403,22 +409,22 @@ class SessionView {
             this.track_color[x] = this.color_schemes[type];
         }
 
-        this.ctx_tracks.fillStyle = this.track_color[x][1];
-        this.ctx_tracks.fillRect(x * this.w + 2, -20, this.w - 2, 18);
+        // this.ctx_tracks.fillStyle = this.track_color[x][1];
+        // this.ctx_tracks.fillRect(x * this.w + 2, -20, this.w - 2, 18);
+        //
+        // const m = this.ctx_tracks.measureText(name);
+        // const dx = (this.w - m.width)  / 2;
+        // const dy = (this.offset_y - this.font_size) / 2;
 
-        const m = this.ctx_tracks.measureText(name);
-        const dx = (this.w - m.width)  / 2;
-        const dy = (this.offset_y - this.font_size) / 2;
-
-        this.ctx_tracks.shadowColor = '#fff';
-        this.ctx_tracks.shadowBlur  = 1;
-        this.ctx_tracks.fillStyle   = '#fff';
-        this.ctx_tracks.fillText(name, x * this.w + dx + 2, -dy - 3);
-        this.ctx_tracks.shadowBlur  = 0;
+        // this.ctx_tracks.shadowColor = '#fff';
+        // this.ctx_tracks.shadowBlur  = 1;
+        // this.ctx_tracks.fillStyle   = '#fff';
+        // this.ctx_tracks.fillText(name, x * this.w + dx + 2, -dy - 3);
+        // this.ctx_tracks.shadowBlur  = 0;
     }
 
     drawPatternName (x, y, p) {
-        this.drawCellTracks(p, x, y);
+        // this.drawCellTracks(p, x, y);
     }
 
     drawSceneName () {
@@ -426,23 +432,23 @@ class SessionView {
     }
 
     drawScene (pos, cells) {
-        this.ctx_tracks_on.clearRect(0, this.scene_pos * this.h, this.w * 8, this.h);
-        this.ctx_master_on.clearRect(0, this.scene_pos * this.h, this.w, this.h);
+        // this.ctx_tracks_on.clearRect(0, this.scene_pos * this.h, this.w * 8, this.h);
+        // this.ctx_master_on.clearRect(0, this.scene_pos * this.h, this.w, this.h);
 
         if (cells != null) {
             this.current_cells = cells;
         }
 
-        this.current_cells.forEach((c, i) => {
-            if (c != null) {
-                this.drawActive(i, c);
-            }
-            else {
-                this.clearActive(i);
-            }
-        });
+        // this.current_cells.forEach((c, i) => {
+        //     if (c != null) {
+        //         this.drawActive(i, c);
+        //     }
+        //     else {
+        //         this.clearActive(i);
+        //     }
+        // });
 
-        this.drawActiveMaster(pos);
+        // this.drawActiveMaster(pos);
         this.scene_pos = pos;
 
         if (this.select_pos.type === 'tracks') {
@@ -454,14 +460,14 @@ class SessionView {
     }
 
     drawActive (x, y) {
-        this.clearActive(x);
-        this.ctx_tracks_on.drawImage(this.img_play, 36, 0, 18, 18,  x * this.w + 3, y * this.h + 3, 16, 15);
+        // this.clearActive(x);
+        // this.ctx_tracks_on.drawImage(this.img_play, 36, 0, 18, 18,  x * this.w + 3, y * this.h + 3, 16, 15);
         this.last_active[x] = y;
     }
 
     drawActiveMaster (y) {
-        this.ctx_master_on.clearRect(0, 0, this.w_master, 10000);
-        this.ctx_master_on.drawImage(this.img_play, 36, 0, 18, 18,  3, y * this.h + 3, 16, 15);
+        // this.ctx_master_on.clearRect(0, 0, this.w_master, 10000);
+        // this.ctx_master_on.drawImage(this.img_play, 36, 0, 18, 18,  3, y * this.h + 3, 16, 15);
     }
 
     drawDrag (ctx, pos) {
@@ -479,18 +485,18 @@ class SessionView {
             this.track_color[pos.x] = this.color_schemes[this.song.tracks[pos.x].type];
         }
 
-        ctx.fillStyle = 'rgba(255,255,255,1.0)';
-        ctx.fillRect(pos.x * this.w, pos.y * this.h, this.w + 2, this.h + 2);
-
-        ctx.strokeStyle = this.track_color[pos.x][1];
-        ctx.fillStyle = this.track_color[pos.x][1];
-
-        ctx.lineWidth = 1;
-        ctx.strokeRect(pos.x * this.w + 2, pos.y * this.h + 2, this.w-2, this.h-2);
-        ctx.fillText(name, pos.x * this.w + 24, (pos.y + 1) * this.h - 6);
-
-        ctx.fillStyle = 'rgba(255,255,255,0.7)';
-        ctx.fillRect(pos.x * this.w, pos.y * this.h, this.w + 2, this.h + 2);
+        // ctx.fillStyle = 'rgba(255,255,255,1.0)';
+        // ctx.fillRect(pos.x * this.w, pos.y * this.h, this.w + 2, this.h + 2);
+        //
+        // ctx.strokeStyle = this.track_color[pos.x][1];
+        // ctx.fillStyle = this.track_color[pos.x][1];
+        //
+        // ctx.lineWidth = 1;
+        // ctx.strokeRect(pos.x * this.w + 2, pos.y * this.h + 2, this.w-2, this.h-2);
+        // ctx.fillText(name, pos.x * this.w + 24, (pos.y + 1) * this.h - 6);
+        //
+        // ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        // ctx.fillRect(pos.x * this.w, pos.y * this.h, this.w + 2, this.h + 2);
 
         this.hover_pos = pos;
     }
@@ -504,28 +510,28 @@ class SessionView {
 
         if (pos.y >= Math.max(this.song.length, 10)) { return; }
 
-        ctx.strokeStyle = this.color[1];
-        ctx.fillStyle   = this.color[1];
-
-        ctx.lineWidth = 1;
-        ctx.strokeRect(2, pos.y * this.h + 2, this.w_master-2, this.h-2);
-        ctx.fillText(name, 24, (pos.y + 1) * this.h - 6);
-
-        ctx.fillStyle = 'rgba(255,255,255,0.7)';
-        ctx.fillRect(0, pos.y * this.h, this.w_master, this.h);
+        // ctx.strokeStyle = this.color[1];
+        // ctx.fillStyle   = this.color[1];
+        //
+        // ctx.lineWidth = 1;
+        // ctx.strokeRect(2, pos.y * this.h + 2, this.w_master-2, this.h-2);
+        // ctx.fillText(name, 24, (pos.y + 1) * this.h - 6);
+        //
+        // ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        // ctx.fillRect(0, pos.y * this.h, this.w_master, this.h);
 
         this.hover_pos = pos;
     }
 
     drawHover (ctx, pos) {
         this.clearHover(ctx);
-        ctx.fillStyle = 'rgba(255,255,255,0.6)';
-        if (ctx == this.ctx_master_hover) {
-            ctx.fillRect(pos.x * this.w, pos.y * this.h, this.w_master, this.h);
-        }
-        else {
-            ctx.fillRect(pos.x * this.w, pos.y * this.h, this.w, this.h);
-        }
+        // ctx.fillStyle = 'rgba(255,255,255,0.6)';
+        // if (ctx == this.ctx_master_hover) {
+        //     ctx.fillRect(pos.x * this.w, pos.y * this.h, this.w_master, this.h);
+        // }
+        // else {
+        //     ctx.fillRect(pos.x * this.w, pos.y * this.h, this.w, this.h);
+        // }
         this.hover_pos = pos;
     }
 
@@ -533,14 +539,14 @@ class SessionView {
         if (ctx == this.ctx_tracks_hover) {
             // for tracks
             // Don't know why '+2' is needed .... but it's needed!!!
-            ctx.clearRect(this.hover_pos.x * this.w, this.hover_pos.y * this.h, this.w + 2, this.h + 2);
+            // ctx.clearRect(this.hover_pos.x * this.w, this.hover_pos.y * this.h, this.w + 2, this.h + 2);
             if (this.hover_pos.x == this.select_pos.x && this.hover_pos.y === this.select_pos.y && this.hover_pos.type === this.select_pos.type) {
                 this.selectCell(this.select_pos);
             }
         }
         else {
             // for master
-            ctx.clearRect(0, this.hover_pos.y * this.h, this.w_master + 2, this.h + 2);
+            // ctx.clearRect(0, this.hover_pos.y * this.h, this.w_master + 2, this.h + 2);
             if (this.hover_pos.x === this.select_pos.x && this.hover_pos.y === this.select_pos.y && this.hover_pos.type === this.select_pos.type) {
                 this.selectCellMaster(this.select_pos);
             }
@@ -548,12 +554,12 @@ class SessionView {
     }
 
     clearActive (x) {
-        this.ctx_tracks_on.clearRect(x * this.w, this.last_active[x] * this.h, this.w, this.h);
+        // this.ctx_tracks_on.clearRect(x * this.w, this.last_active[x] * this.h, this.w, this.h);
     }
 
     clearAllActive () {
-        this.ctx_tracks_on.clearRect(0, 0, 10000, 10000);
-        this.ctx_master_on.clearRect(0, 0, 10000, 10000);
+        // this.ctx_tracks_on.clearRect(0, 0, 10000, 10000);
+        // this.ctx_master_on.clearRect(0, 0, 10000, 10000);
     }
 
     // Cue the cells to play
@@ -561,8 +567,8 @@ class SessionView {
         if (this.song.tracks[x] == null) { return; }
         if (this.song.tracks[x].patterns[y] != null) {
             this.model.cuePattern(x, y);
-            this.ctx_tracks_on.drawImage(this.img_play, 36, 0, 18, 18, x * this.w + 4, y * this.h + 4, 15, 16);
-            window.setTimeout(() => this.ctx_tracks_on.clearRect(x * this.w + 4, y * this.h + 4, 15, 16), 100);
+            // this.ctx_tracks_on.drawImage(this.img_play, 36, 0, 18, 18, x * this.w + 4, y * this.h + 4, 15, 16);
+            // window.setTimeout(() => this.ctx_tracks_on.clearRect(x * this.w + 4, y * this.h + 4, 15, 16), 100);
         }
         else {
             this.model.cueOff(x);
@@ -572,24 +578,24 @@ class SessionView {
     cueMaster (x, y) {
         if (this.song.master[y] != null) {
             this.model.cueScene(y)
-            this.ctx_master_on.drawImage(this.img_play, 36, 0, 18, 18,  4, y * this.h + 4, 15, 16);
-            window.setTimeout(() => this.ctx_master_on.clearRect(4, y * this.h + 4, 15, 16), 100);
+            // this.ctx_master_on.drawImage(this.img_play, 36, 0, 18, 18,  4, y * this.h + 4, 15, 16);
+            // window.setTimeout(() => this.ctx_master_on.clearRect(4, y * this.h + 4, 15, 16), 100);
         }
     }
 
     // Light the play buttons on beat.
     beat (is_master, cells) {
-        if (is_master) {
-            const c = cells;
-            this.ctx_master_on.drawImage(this.img_play, 36, 0, 18, 18, c[0] * this.w + 3, c[1] * this.h + 3, 16, 15);
-            window.setTimeout(() => this.ctx_master_on.clearRect(c[0] * this.w + 3, c[1] * this.h + 3, 16, 15), 100);
-        }
-        else {
-            cells.forEach((c) => {
-                this.ctx_tracks_on.drawImage(this.img_play, 36, 0, 18, 18, c[0] * this.w + 3, c[1] * this.h + 3, 16, 15);
-                window.setTimeout(() => this.ctx_tracks_on.clearRect(c[0] * this.w + 3, c[1] * this.h + 3, 16, 15), 100);
-            });
-        }
+        // if (is_master) {
+        //     const c = cells;
+        //     this.ctx_master_on.drawImage(this.img_play, 36, 0, 18, 18, c[0] * this.w + 3, c[1] * this.h + 3, 16, 15);
+        //     window.setTimeout(() => this.ctx_master_on.clearRect(c[0] * this.w + 3, c[1] * this.h + 3, 16, 15), 100);
+        // }
+        // else {
+        //     cells.forEach((c) => {
+        //         this.ctx_tracks_on.drawImage(this.img_play, 36, 0, 18, 18, c[0] * this.w + 3, c[1] * this.h + 3, 16, 15);
+        //         window.setTimeout(() => this.ctx_tracks_on.clearRect(c[0] * this.w + 3, c[1] * this.h + 3, 16, 15), 100);
+        //     });
+        // }
     }
 
     editPattern (pos) {
@@ -650,10 +656,10 @@ class SessionView {
 
         // Deep copy the pattern
         this.song.tracks[dst.x].patterns[dst.y] = $.extend(true, {}, this.song.tracks[src.x].patterns[src.y]);
-        this.drawCellTracks(this.song.tracks[dst.x].patterns[dst.y], dst.x, dst.y);
+        // this.drawCellTracks(this.song.tracks[dst.x].patterns[dst.y], dst.x, dst.y);
 
         this.model.readPattern(this.song.tracks[dst.x].patterns[dst.y], dst.x, dst.y);
-        this.drawCellMaster(this.song.master[dst.y], 0, dst.y);
+        // this.drawCellMaster(this.song.master[dst.y], 0, dst.y);
     }
 
     copyCellMaster (src, dst) {
@@ -676,21 +682,21 @@ class SessionView {
             return;
         }
 
-        this.ctx_master_hover.clearRect(this.select_pos.x * this.w, this.select_pos.y * this.h, this.w_master, this.h);
-
-        this.ctx_tracks_hover.clearRect(this.hover_pos.x * this.w, this.hover_pos.y * this.h, this.w, this.h);
-        this.ctx_tracks_hover.clearRect(this.click_pos.x * this.w, this.click_pos.y * this.h, this.w, this.h);
-        this.ctx_tracks_hover.clearRect(this.select_pos.x * this.w, this.select_pos.y * this.h, this.w, this.h);
+        // this.ctx_master_hover.clearRect(this.select_pos.x * this.w, this.select_pos.y * this.h, this.w_master, this.h);
+        //
+        // this.ctx_tracks_hover.clearRect(this.hover_pos.x * this.w, this.hover_pos.y * this.h, this.w, this.h);
+        // this.ctx_tracks_hover.clearRect(this.click_pos.x * this.w, this.click_pos.y * this.h, this.w, this.h);
+        // this.ctx_tracks_hover.clearRect(this.select_pos.x * this.w, this.select_pos.y * this.h, this.w, this.h);
 
         if (this.track_color[pos.x] == null) {
             this.track_color[pos.x] = this.color_schemes[this.song.tracks[pos.x].type];
         }
 
-        this.ctx_tracks_hover.fillStyle = this.track_color[pos.x][5];
-        this.ctx_tracks_hover.fillRect(pos.x * this.w + 2, pos.y * this.h + 2, this.w - 2, this.h - 2);
-
-        this.ctx_tracks_hover.fillStyle = this.track_color[pos.x][1];
-        this.ctx_tracks_hover.fillText(this.song.tracks[pos.x].patterns[pos.y].name, pos.x * this.w + 24, (pos.y + 1) * this.h - 6);
+        // this.ctx_tracks_hover.fillStyle = this.track_color[pos.x][5];
+        // this.ctx_tracks_hover.fillRect(pos.x * this.w + 2, pos.y * this.h + 2, this.w - 2, this.h - 2);
+        //
+        // this.ctx_tracks_hover.fillStyle = this.track_color[pos.x][1];
+        // this.ctx_tracks_hover.fillText(this.song.tracks[pos.x].patterns[pos.y].name, pos.x * this.w + 24, (pos.y + 1) * this.h - 6);
 
         this.select_pos = pos;
         this.select_pos.type = 'tracks';
@@ -701,17 +707,17 @@ class SessionView {
     selectCellMaster (pos) {
         if (this.song.master[pos.y] == null) { return; }
 
-        this.ctx_tracks_hover.clearRect(this.select_pos.x * this.w, this.select_pos.y * this.h, this.w, this.h);
-
-        this.ctx_master_hover.clearRect(0, this.hover_pos.y * this.h, this.w_master, this.h);
-        this.ctx_master_hover.clearRect(0, this.click_pos.y * this.h, this.w_master, this.h);
-        this.ctx_master_hover.clearRect(0, this.select_pos.y * this.h, this.w_master, this.h);
-
-        this.ctx_master_hover.fillStyle = this.color[5];
-        this.ctx_master_hover.fillRect(2, pos.y * this.h + 2, this.w_master - 2, this.h - 2);
-
-        this.ctx_master_hover.fillStyle = this.color[1];
-        this.ctx_master_hover.fillText(this.song.master[pos.y].name, pos.x * this.w_master + 24, (pos.y + 1) * this.h - 6);
+        // this.ctx_tracks_hover.clearRect(this.select_pos.x * this.w, this.select_pos.y * this.h, this.w, this.h);
+        //
+        // this.ctx_master_hover.clearRect(0, this.hover_pos.y * this.h, this.w_master, this.h);
+        // this.ctx_master_hover.clearRect(0, this.click_pos.y * this.h, this.w_master, this.h);
+        // this.ctx_master_hover.clearRect(0, this.select_pos.y * this.h, this.w_master, this.h);
+        //
+        // this.ctx_master_hover.fillStyle = this.color[5];
+        // this.ctx_master_hover.fillRect(2, pos.y * this.h + 2, this.w_master - 2, this.h - 2);
+        //
+        // this.ctx_master_hover.fillStyle = this.color[1];
+        // this.ctx_master_hover.fillText(this.song.master[pos.y].name, pos.x * this.w_master + 24, (pos.y + 1) * this.h - 6);
 
         this.select_pos = pos;
         this.select_pos.type = 'master';
