@@ -1,4 +1,3 @@
-const mysql = require('mysql');
 const db = require('../service/db');
 
 const getSong = (req, res) => {

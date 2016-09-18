@@ -12,7 +12,7 @@ const routes = require('./routes');
 const app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
+
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ect');
 app.engine('ect', ectRenderer.render);

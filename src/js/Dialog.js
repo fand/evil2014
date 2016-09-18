@@ -37,7 +37,7 @@ class Dialog extends React.Component {
     const text = this.renderText();
     const title = this.state.songTitle ? `${text} :: evil` : 'evil';
 
-    history.pushState('', title, this.state.songUrl);
+    history.pushState('', title, new URL(this.state.songUrl).pathname);
     document.title = title;
 
     return (

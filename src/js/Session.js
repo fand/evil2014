@@ -342,15 +342,14 @@ class Session {
 
         // Save the song via ajax.
         axios.post('/', {
-            data : {
-                song  : JSON.stringify(this.song),
-                token : this.view.getCSRFToken(),
-            },
+            song  : JSON.stringify(this.song),
+            token : this.view.getCSRFToken(),
         })
-        .then((d) => {
-            this.view.showSuccess(d, this.song.title, this.song.creator);
+        .then((res) => {
+            this.view.showSuccess(res.data.id, this.song.title, this.song.creator);
         })
         .catch((err) => {
+            console.error(err);
             this.view.showError(err);
         });
     }
