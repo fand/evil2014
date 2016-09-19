@@ -42,6 +42,7 @@ class SessionView {
         this.song_info      = $('#song-info');
         this.song_title     = this.song_info.find('#song-title');
         this.song_creator   = this.song_info.find('#song-creator');
+        this.initEvent();
 
         this.social = ReactDOM.render(<SocialButtons song={this.model.song}/>, document.querySelector('#social'));
 
@@ -49,6 +50,7 @@ class SessionView {
 
         this.sessionTracks = ReactDOM.render(<SessionComponent model={this.model}/>, document.querySelector('#session-tracks-wrapper2'));
 
+        this.readSong(this.song, this.current_cells);
     }
 
     getCSRFToken () {
@@ -56,20 +58,15 @@ class SessionView {
     }
 
     initEvent () {
-        // for Other view
         this.btn_save.on('click', () => this.model.saveSong());
-
         this.song_title
             .on('focus', () => window.keyboard.beginInput())
             .on('change', () => this.setSongTitle())
             .on('blur', () => window.keyboard.endInput());
-
         this.song_creator
             .on('focus', () => window.keyboard.beginInput())
             .on('change', () => this.setCreatorName())
             .on('blur', () => window.keyboard.endInput());
-
-        this.readSong(this.song, this.current_cells);
     }
 
     // Set params for this.song (ref to this.model.song).
@@ -269,7 +266,8 @@ class SessionView {
         this.select_pos = pos;
         this.select_pos.type = 'master';
 
-        this.model.player.sidebar.show(this.song, this.select_pos);
+        // TODO:なんとかする
+        // this.model.player.sidebar.show(this.song, this.select_pos);
     }
 
     getSelectPos () {

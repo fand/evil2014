@@ -346,6 +346,7 @@ class Session {
             token : this.view.getCSRFToken(),
         })
         .then((res) => {
+            console.log('>>>>>>>>>>>>', res);
             this.view.showSuccess(res.data.id, this.song.title, this.song.creator);
         })
         .catch((err) => {

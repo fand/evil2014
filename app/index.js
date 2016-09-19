@@ -1,8 +1,9 @@
 const express    = require('express');
 const morgan     = require('morgan');
-const path       = require('path');
+const helmet     = require('helmet');
 const bodyParser = require('body-parser');
 const favicon    = require('serve-favicon');
+const path       = require('path');
 
 const ect         = require('ect');
 const ectRenderer = ect({ watch: true, root: __dirname + '/views', ext : '.ect' });
@@ -12,6 +13,7 @@ const routes = require('./routes');
 const app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
+app.use(helmet());
 
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ect');
