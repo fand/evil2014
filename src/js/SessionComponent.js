@@ -44,6 +44,12 @@ class SessionComponent extends React.Component {
   }
 
   renderTrackCell (pattern, x, y) {
+    if (!pattern) {
+      return (
+        <div className="Session__Track__EmptyCell" key={y}
+          onDoubleClick={() => this.onDoubleClickTrackCell(x, y)}/>
+      );
+    }
     return (
       <div className="Session__Track__Cell" key={y}
         onDoubleClick={() => this.onDoubleClickTrackCell(x, y)}>
@@ -58,7 +64,7 @@ class SessionComponent extends React.Component {
         <div className="Session__Track__Header">
           {track.name}
         </div>
-        {track.patterns.map((p, y) => this.renderTrackCell(p, x, y))}
+        {Array.from(track.patterns).map((p, y) => this.renderTrackCell(p, x, y))}
       </div>
     );
   }

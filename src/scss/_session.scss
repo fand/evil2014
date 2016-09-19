@@ -87,6 +87,9 @@
             @extend .Session__Cell;
             background: #eee;
         }
+        &__EmptyCell {
+            @extend .Session__Cell;
+        }
     }
     &__EmptyTrack {
         &__Header {
