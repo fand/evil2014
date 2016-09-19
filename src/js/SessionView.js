@@ -35,8 +35,6 @@ class SessionView {
         this.dialog = ReactDOM.render(<Dialog/>, document.querySelector('#dialog'));
 
         this.sessionTracks = ReactDOM.render(<SessionComponent model={this.model}/>, document.querySelector('#session-tracks-wrapper2'));
-
-        this.readSong(this.song);
     }
 
     getCSRFToken () {
@@ -69,41 +67,10 @@ class SessionView {
         this.song = song;
 
         this.sessionTracks.setState({ song });
-        this.selectCellMaster(this.select_pos);
 
         // set Global info
         this.song_title.val(this.song.title);
         this.song_creator.val(this.song.creator);
-    }
-
-    /**
-     * 実質「あるcellにfocusする」という役割しか持たない
-     */
-    drawScene (pos) {
-        if (pos.type === 'tracks') {
-            this.selectCell(this.pos);
-        }
-        else if (pos.type === 'master') {
-            this.selectCellMaster(this.pos);
-        }
-    }
-
-    // Select cell on click.
-    // TODO: focus に名前かえる
-    selectCell (pos) {
-        if (this.song.tracks[pos.x] == null || this.song.tracks[pos.x].patterns[pos.y] == null) {
-            return;
-        }
-        this.select_pos = pos;
-    }
-
-    selectCellMaster (pos) {
-        if (this.song.master[pos.y] == null) { return; }
-
-        this.select_pos = pos;
-
-        // TODO:なんとかする
-        // this.model.player.sidebar.show(this.song, this.select_pos);
     }
 
     // Cue the cells to play

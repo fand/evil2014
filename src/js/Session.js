@@ -26,6 +26,12 @@ class Session {
 
         this.song = CONSTANT.SONG_DEFAULT;
 
+        this.focusedCell = {
+            x    : 0,
+            y    : 0,
+            type : 'master',
+        };
+
         this.view = new SessionView(this, this.song);
     }
 
@@ -66,7 +72,8 @@ class Session {
             this.current_cells[q[0]] = q[1];
         });
 
-        this.view.drawScene(this.scene_pos);
+        this.focusedCell = this.scene_pos;
+
         this.next_pattern_pos = [];
         this.cue_queue        = [];
     }
@@ -119,7 +126,7 @@ class Session {
         }
         this.player.setSceneLength(this.scene_length);
         this.view.readSong(this.song, this.current_cells);
-        this.view.drawScene(this.scene_pos);
+        this.focusedPos = this.scene_pos;
         this.next_pattern_pos = [];
         this.next_scene_pos = undefined;
         this.cue_queue = [];
@@ -131,7 +138,7 @@ class Session {
 
     // Display current states via SessionView.
     play () {
-        this.view.drawScene(this.scene_pos);
+        this.focusedPos = this.scene_pos;
     }
 
     beat () {

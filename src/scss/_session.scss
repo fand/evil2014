@@ -100,4 +100,24 @@
             @extend .Session__Cell;
         }
     }
+
+    &__Master {
+        position: absolute;
+        top:0;
+        right:0;
+        z-index: 2;
+        margin:1px;
+
+        &__Header {
+            @extend .Session__Cell;
+            background: #0df;
+            color: white;
+            margin-bottom:4px;
+            text-align: center;
+        }
+        &__Cell {
+            @extend .Session__Cell;
+            background: #eee;
+        }
+    }
 }

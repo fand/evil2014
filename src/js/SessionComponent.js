@@ -90,11 +90,21 @@ class SessionComponent extends React.Component {
     );
   }
 
+  renderScene (scene, y) {
+    if (!scene) { return null; }
+    return (
+      <div className="Session__Master__Cell" key={y}>
+        {scene.name}
+      </div>
+    );
+  }
+
   render () {
     const song = this.state.song;
     if (!song) { return null; }
 
     const empties = _.range(song.tracks.length + 7);
+    const scenes  = Array.from(song.master);
 
     return (
       <div className="Session">
@@ -103,6 +113,11 @@ class SessionComponent extends React.Component {
         </div>
         <div className="Session__EmptyTracks">
           {empties.map(x => this.renderEmptyTrack(x))}
+        </div>
+
+        <div className="Session__Master">
+          <div className="Session__Master__Header">master</div>
+          {scenes.map((scene, y) => this.renderScene(scene, y))}
         </div>
       </div>
     );

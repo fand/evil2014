@@ -618,7 +618,7 @@ canvas:active {
   width: 560px;
   height: 240px; }
 
-.Session__Cell, .Session__Track__Header, .Session__Track__Cell, .Session__Track__EmptyCell, .Session__EmptyTrack__Header, .Session__EmptyTrack__Cell {
+.Session__Cell, .Session__Track__Header, .Session__Track__Cell, .Session__Track__EmptyCell, .Session__EmptyTrack__Header, .Session__EmptyTrack__Cell, .Session__Master__Header, .Session__Master__Cell {
   width: 70px;
   height: 20px;
   border: 1px solid white;
@@ -653,6 +653,20 @@ canvas:active {
 
 .Session__EmptyTrack__Header {
   margin-bottom: 4px; }
+
+.Session__Master {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  margin: 1px; }
+  .Session__Master__Header {
+    background: #0df;
+    color: white;
+    margin-bottom: 4px;
+    text-align: center; }
+  .Session__Master__Cell {
+    background: #eee; }
 
 #sidebar-wrapper {
   position: absolute;
