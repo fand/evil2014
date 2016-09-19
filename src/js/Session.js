@@ -66,7 +66,7 @@ class Session {
             this.current_cells[q[0]] = q[1];
         });
 
-        this.view.drawScene(this.scene_pos, this.current_cells)
+        this.view.drawScene(this.scene_pos);
         this.next_pattern_pos = [];
         this.cue_queue        = [];
     }
@@ -119,7 +119,7 @@ class Session {
         }
         this.player.setSceneLength(this.scene_length);
         this.view.readSong(this.song, this.current_cells);
-        this.view.drawScene(this.scene_pos, this.current_cells);
+        this.view.drawScene(this.scene_pos);
         this.next_pattern_pos = [];
         this.next_scene_pos = undefined;
         this.cue_queue = [];
@@ -131,7 +131,7 @@ class Session {
 
     // Display current states via SessionView.
     play () {
-        this.view.drawScene(this.scene_pos, this.current_cells);
+        this.view.drawScene(this.scene_pos);
     }
 
     beat () {
@@ -186,8 +186,6 @@ class Session {
 
         this.song.tracks.push(s_obj);
         this.current_cells.push(pos);
-
-        this.view.addSynth(this.song);
     }
 
     setSynth (synth) {
@@ -381,8 +379,7 @@ class Session {
      * called by Synth, Sampler
      */
     setSynthName (synth_id, name) {
-        this.song.tracks[synth_id].name = name
-        this.view.drawTrackName(synth_id, name, this.song.tracks[synth_id].type)
+        this.song.tracks[synth_id].name = name;
     }
 
     /**
@@ -425,7 +422,6 @@ class Session {
         // Swap patterns[0] and current patterns.
         const pats = this.song.tracks[id].patterns;
         [pats[0], pats[this.current_cells[id]]] = [pats[this.current_cells[id]], pats[0]];
-        this.view.addSynth(this.song, [id, this.scene_pos]);
     }
 
     empty () {

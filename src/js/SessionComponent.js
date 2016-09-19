@@ -1,6 +1,14 @@
 const React = require('react');
 const _     = require('lodash');
 
+/**
+ * Cellは以下の状態をもつ
+ * - isSelected
+ * - isFocused
+ * 更にドラッグされたときの表示をどうにかする必要がある
+ * clipのあるCellと空のCellとの書き分けは、同じComponentで行うと良さそう？
+ */
+
 // Sessionを呼ぶ処理
 // this.model.cuePattern(x, y);
 // this.model.cueOff(x);
