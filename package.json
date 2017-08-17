@@ -4,6 +4,10 @@
   "version": "0.1.0",
   "author": "fand",
   "bugs": "https://github.com/fand/evil2014/issue",
+  "engines": {
+    "node": "6.5.0",
+    "npm":  "3.10.3"
+  },
   "dependencies": {
     "axios": "^0.14.0",
     "body-parser": "^1.15.2",
