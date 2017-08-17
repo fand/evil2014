@@ -8,11 +8,11 @@ require('./gulp/tasks/build');
 require('./gulp/tasks/watch');
 
 gulp.task('dev', gulp.series(
-    () => { process.env.NODE_ENV = 'development'; },
+    (done) => { process.env.NODE_ENV = 'development'; done(); },
     gulp.parallel('build', 'watch', 'pm2')
 ));
 gulp.task('pro', gulp.series(
-    () => { process.env.NODE_ENV = 'production'; },
+    (done) => { process.env.NODE_ENV = 'production'; done(); },
     gulp.parallel('build', 'pm2')
 ));
 
