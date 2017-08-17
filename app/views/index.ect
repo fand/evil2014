@@ -1,0 +1,88 @@
+<% extend 'layout' %>
+
+<div id="top">
+  <div id="top-logo">
+    <div id="top-logo-wrapper">
+      <img id="evil-logo" src="/static/img/evil_300.png" />
+      <a id="chrome-logo" href="http://www.google.com/intl/ja/chrome/browser/"><img src="/static/img/chrome_300.png" /></a>
+    </div>
+  </div>
+  <div id="top-sorry">for <a href="http://www.google.com/intl/ja/chrome/browser/">Google Chrome</a></div>
+</div>
+
+<div id="dialog"></div>
+
+<div id="key-help"></div>
+
+<!-- top left -->
+<div id="btn-save" class="fa fa-save"></div>
+<!-- <div id="btn-clear" class="fa fa-file-o"></div> -->
+<form id="ajax-form" method="POST"></form>
+<script id="song"><% if @song : %> var song_read = <%- @song %> <% end %></script>
+
+<div id="social"></div>
+
+<div id="wrapper">
+
+  <div id="env"></div>
+
+  <div id="instruments" class="clearfix"></div>
+
+  <div id="mixer">
+
+    <div id="mixer-body">
+      <div id="mixer-tracks">
+        <div id="session-tracks-wrapper2"></div>
+        <div id="session-tracks-wrapper">
+         <div id="session-tracks-wrapper-sub">
+          <canvas id="session-tracks"></canvas>
+          <canvas id="session-tracks-on"></canvas>
+          <canvas id="session-tracks-hover"></canvas>
+         </div>
+        </div>
+        <div id="effects-tracks" class="clearfix"></div>
+        <div id="console-tracks" class="clearfix"></div>
+      </div>
+
+      <div id="mixer-master">
+        <div id="session-master-wrapper">
+          <canvas id="session-master"></canvas>
+          <canvas id="session-master-on"></canvas>
+          <canvas id="session-master-hover"></canvas>
+        </div>
+        <div id="console-master" class="clearfix">
+          <div class="console-track">
+            <div>MASTER</div>
+            <input class="gain-slider" type="range" min="0" max="100" value="100" />
+            <canvas class="vu-meter"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="mixer-sidebar">
+      <div id="sidebar-wrapper"></div>
+    </div>
+  </div>
+
+  <div id="templates">
+    <% include 'synth/synth' %>
+    <% include 'synth/sampler' %>
+
+    <div class="console-track">
+      <div class="pan-label">C</div>
+      <input class="pan-slider" type="range" min="0" max="200" value="100" />
+      <input class="gain-slider" type="range" min="0" max="100" value="100" />
+
+      <canvas class="vu-meter"></canvas>
+    </div>
+
+  </div>
+</div>
+
+<% include 'footer' %>
+
+<i id="btn-left"   class="btn fa fa-angle-left"  data-line1="prev" data-line2="synth"></i>
+<i id="btn-right"  class="btn fa fa-angle-right" data-line1="new"  data-line2="synth"></i>
+<i id="btn-top"    class="btn fa fa-angle-up"    data-line1="mixer"></i>
+<i id="btn-bottom" class="btn fa fa-angle-down"  data-line1="synths"></i>

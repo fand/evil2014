@@ -1,0 +1,123 @@
+#session-tracks-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 242px;
+    top: 0px;
+    left: 0px;
+    margin-bottom: 160px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+#session-tracks-wrapper-sub {
+    position: absolute;
+    width: 100%;
+    height: 242px;
+    top: 0px;
+    left: 0px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+#session-tracks-wrapper-sub::-webkit-scrollbar {
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+}
+
+#session-master-wrapper {
+    position: absolute;
+    width: 94px;
+    height: 242px;
+    top: 0px;
+    right: 0px;
+    margin: 0px 7px 0px 9px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+#session-master, #session-master-on, #session-master-hover {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 80px;
+    height: 240px;
+}
+#session-tracks, #session-tracks-on, #session-tracks-hover {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 560px;
+    height: 240px;
+}
+
+.Session {
+    &__Cell {
+        width      : 70px;
+        height     : 20px;
+        border     : 1px solid white;
+        background : #fefefe;
+        box-sizing : border-box;
+    }
+
+    &__Tracks {
+        position: absolute;
+        top:0;
+        left:0;
+        display: flex;
+        flex-direction: row;
+        z-index: 2;
+        margin:1px;
+    }
+    &__EmptyTracks {
+        position: absolute;
+        top:0;
+        left:0;
+        display: flex;
+        flex-direction: row;
+        z-index: 1;
+    }
+
+    &__Track {
+        &__Header {
+            @extend .Session__Cell;
+            background: #0df;
+            color: white;
+            margin-bottom:4px;
+            text-align: center;
+        }
+        &__Cell {
+            @extend .Session__Cell;
+            background: #eee;
+        }
+        &__EmptyCell {
+            @extend .Session__Cell;
+        }
+    }
+    &__EmptyTrack {
+        &__Header {
+            @extend .Session__Cell;
+            margin-bottom:4px;
+        }
+        &__Cell {
+            @extend .Session__Cell;
+        }
+    }
+
+    &__Master {
+        position: absolute;
+        top:0;
+        right:0;
+        z-index: 2;
+        margin:1px;
+
+        &__Header {
+            @extend .Session__Cell;
+            background: #0df;
+            color: white;
+            margin-bottom:4px;
+            text-align: center;
+        }
+        &__Cell {
+            @extend .Session__Cell;
+            background: #eee;
+        }
+    }
+}
