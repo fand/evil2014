@@ -17,8 +17,31 @@ if (m) {
   config.host = m[3];
   config.database = m[4];
 }
-console.log('>> config', JSON.stringify(config));
-var connection = mysql.createConnection(config);
 
-connection.connect();
+let connection;
+
+const connect = () => {
+  console.log('INFO.CONNECTION_DB: ');
+  connection = mysql.createConnection(config);
+
+  connection.connect((err) => {
+    if (err) {
+      console.log('ERROR.CONNECTION_DB: ', err);
+      setTimeout(connect, 1000);
+    }
+  });
+
+  connection.on('error', (err) => {
+    console.log('ERROR.DB: ', err);
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+      console.log('ERROR.CONNECTION_LOST: ', err);
+      connect();
+    }
+    else {
+      throw err;
+    }
+  });
+};
+
+connect();
 module.exports = connection;
