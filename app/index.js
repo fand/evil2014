@@ -27,4 +27,4 @@ app.post('/', routes.saveSong);
 app.get('/:id', routes.getSong);
 app.get('/*', routes.notFound);
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);

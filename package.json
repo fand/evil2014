@@ -68,10 +68,10 @@
     "url": "https://fand@github.com/fand/evil2014.git"
   },
   "scripts": {
-    "build": "gulp build",
-    "build:css": "gulp sass",
-    "build:js": "gulp browserify",
-    "watch": "gulp watch",
+    "build": "$(npm bin)/gulp build",
+    "build:css": "$(npm bin)/gulp sass",
+    "build:js": "$(npm bin)/gulp browserify",
+    "watch": "$(npm bin)/gulp watch",
     "serve": "node app/index.js",
     "start": "NODE_ENV='production' npm run serve",
     "dev": "npm-run-all -p serve watch",
