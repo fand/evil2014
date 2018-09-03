@@ -8,7 +8,7 @@ const config = {
   password : ''
 };
 
-const m = process.env.CLEARDB_DATABASE_URL.match(
+const m = process.env.CLEARDB_DATABASE_URL && process.env.CLEARDB_DATABASE_URL.match(
   /mysql:\/\/([^:]*):([^@]*)@(.*)\/(.*)\?.*/
 );
 if (m) {
